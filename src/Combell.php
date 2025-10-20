@@ -30,14 +30,14 @@ class Combell extends Connector
 
     public function resolveBaseUrl(): string
     {
-        return "https://api.combell.nl/v2/";
+        return 'https://api.combell.nl/v2/';
     }
 
     protected function defaultHeaders(): array
     {
         return [
-            "Content-Type" => "application/json",
-            "Accept" => "application/json",
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ];
     }
 
@@ -59,8 +59,8 @@ class Combell extends Connector
         ?string $apiSecret = null,
     ): static {
         $instance = new static(
-            apiKey: $apiKey ?? "",
-            apiSecret: $apiSecret ?? "",
+            apiKey: $apiKey ?? '',
+            apiSecret: $apiSecret ?? '',
         );
 
         if ($mock instanceof MockClient) {

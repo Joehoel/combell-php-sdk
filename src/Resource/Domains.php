@@ -32,12 +32,12 @@ class Domains extends BaseResource
 
     public function register(): Response
     {
-        return $this->connector->send(new Register());
+        return $this->connector->send(new Register);
     }
 
     public function transfer(): Response
     {
-        return $this->connector->send(new Transfer());
+        return $this->connector->send(new Transfer);
     }
 
     /**

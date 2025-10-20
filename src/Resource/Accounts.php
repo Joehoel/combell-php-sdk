@@ -29,7 +29,7 @@ class Accounts extends BaseResource
 
     public function createAccount(): Response
     {
-        return $this->connector->send(new CreateAccount());
+        return $this->connector->send(new CreateAccount);
     }
 
     /**

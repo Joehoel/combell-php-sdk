@@ -16,7 +16,7 @@ class GetAccounts extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/accounts";
+        return '/accounts';
     }
 
     /**
@@ -35,10 +35,10 @@ class GetAccounts extends Request
     public function defaultQuery(): array
     {
         return array_filter([
-            "skip" => $this->skip,
-            "take" => $this->take,
-            "asset_type" => $this->assetType,
-            "identifier" => $this->identifier,
+            'skip' => $this->skip,
+            'take' => $this->take,
+            'asset_type' => $this->assetType,
+            'identifier' => $this->identifier,
         ]);
     }
 
