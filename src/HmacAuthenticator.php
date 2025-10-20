@@ -1,8 +1,8 @@
 <?php
 
-use Saloon\Http\PendingRequest;
 use Saloon\Contracts\Authenticator;
 use Saloon\Contracts\Body\BodyRepository;
+use Saloon\Http\PendingRequest;
 
 class HmacAuthenticator implements Authenticator
 {
@@ -21,7 +21,7 @@ class HmacAuthenticator implements Authenticator
         $query = (string) $uri->getQuery();
 
         if ($query !== '') {
-            $path .= '?' . $query;
+            $path .= '?'.$query;
         }
 
         if ($path !== urldecode($path)) {
@@ -49,11 +49,11 @@ class HmacAuthenticator implements Authenticator
         $method = strtolower($pendingRequest->getMethod()->value);
 
         $valueToSign = $this->apiKey
-            . $method
-            . urlencode($path)
-            . $time
-            . $nonce
-            . $bodyString;
+            .$method
+            .urlencode($path)
+            .$time
+            .$nonce
+            .$bodyString;
 
         $signedValue = hash_hmac('sha256', $valueToSign, $this->apiSecret, true);
         $signature = base64_encode($signedValue);

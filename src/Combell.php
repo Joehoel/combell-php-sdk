@@ -13,14 +13,14 @@ class Combell extends Connector
 
     public function resolveBaseUrl(): string
     {
-        return "https://api.combell.nl/v2/";
+        return 'https://api.combell.nl/v2/';
     }
 
     protected function defaultHeaders(): array
     {
         return [
-            "Content-Type" => "application/json",
-            "Accept" => "application/json",
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
         ];
     }
 
