@@ -13,14 +13,14 @@ class Account
     public static function fromResponse(array $data): self
     {
         return new self(
-            id: $data["id"] ?? null,
-            identifier: $data["identifier"] ?? null,
-            servicepackId: $data["servicepack_id"] ?? null,
+            id: $data['id'] ?? null,
+            identifier: $data['identifier'] ?? null,
+            servicepackId: $data['servicepack_id'] ?? null,
         );
     }
 
     public static function collect(array $items): array
     {
-        return array_map(fn(array $item) => self::fromResponse($item), $items);
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
 }
