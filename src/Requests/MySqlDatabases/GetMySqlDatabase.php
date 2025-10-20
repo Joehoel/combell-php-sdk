@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\MySqlDatabases;
 
-
 use Joehoel\Combell\Dto\MySqlDatabase;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetMySqlDatabase extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -25,12 +23,8 @@ class GetMySqlDatabase extends Request
         protected string $databaseName,
     ) {}
 
-
-
-
     public function createDtoFromResponse(Response $response): MySqlDatabase
     {
         return MySqlDatabase::fromResponse($response->json());
     }
-
 }

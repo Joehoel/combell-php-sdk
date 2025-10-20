@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-
 use Joehoel\Combell\Dto\LinuxHosting;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetLinuxHostings extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -35,12 +33,8 @@ class GetLinuxHostings extends Request
         return array_filter(['skip' => $this->skip, 'take' => $this->take]);
     }
 
-
-
-
     public function createDtoFromResponse(Response $response): array
     {
         return LinuxHosting::collect($response->json('items'));
     }
-
 }

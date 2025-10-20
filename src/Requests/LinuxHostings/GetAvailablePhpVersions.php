@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-
 use Joehoel\Combell\Dto\PhpVersion;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetAvailablePhpVersions extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -28,12 +26,8 @@ class GetAvailablePhpVersions extends Request
         protected string $domainName,
     ) {}
 
-
-
-
     public function createDtoFromResponse(Response $response): array
     {
         return PhpVersion::collect($response->json());
     }
-
 }

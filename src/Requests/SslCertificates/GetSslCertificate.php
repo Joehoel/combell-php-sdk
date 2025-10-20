@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\SslCertificates;
 
-
 use Joehoel\Combell\Dto\SslCertificateDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetSslCertificate extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -26,12 +24,8 @@ class GetSslCertificate extends Request
      */
     public function __construct(protected string $sha1Fingerprint) {}
 
-
-
-
     public function createDtoFromResponse(Response $response): SslCertificateDetail
     {
         return SslCertificateDetail::fromResponse($response->json());
     }
-
 }

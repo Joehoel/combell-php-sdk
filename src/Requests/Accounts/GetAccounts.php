@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\Accounts;
 
-
 use Joehoel\Combell\Dto\Account;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetAccounts extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -44,12 +42,8 @@ class GetAccounts extends Request
         ]);
     }
 
-
-
-
     public function createDtoFromResponse(Response $response): array
     {
         return Account::collect($response->json('items'));
     }
-
 }

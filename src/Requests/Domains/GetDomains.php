@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\Domains;
 
-
 use Joehoel\Combell\Dto\Domain;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetDomains extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -35,12 +33,8 @@ class GetDomains extends Request
         return array_filter(['skip' => $this->skip, 'take' => $this->take]);
     }
 
-
-
-
     public function createDtoFromResponse(Response $response): array
     {
         return Domain::collect($response->json('items'));
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\SslCertificateRequests;
 
-
 use Joehoel\Combell\Dto\SslCertificateRequestDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetSslCertificateRequest extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -28,12 +26,8 @@ class GetSslCertificateRequest extends Request
         protected int $id,
     ) {}
 
-
-
-
     public function createDtoFromResponse(Response $response): SslCertificateRequestDetail
     {
         return SslCertificateRequestDetail::fromResponse($response->json());
     }
-
 }

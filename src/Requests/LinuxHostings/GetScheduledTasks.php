@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-
 use Joehoel\Combell\Dto\ScheduledTask;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -15,7 +14,6 @@ use Saloon\Http\Response;
  */
 class GetScheduledTasks extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -30,12 +28,8 @@ class GetScheduledTasks extends Request
         protected string $domainName,
     ) {}
 
-
-
-
     public function createDtoFromResponse(Response $response): array
     {
         return ScheduledTask::collect($response->json());
     }
-
 }

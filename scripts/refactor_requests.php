@@ -1,10 +1,15 @@
 <?php
-$dir = __DIR__ . '/../src/Requests';
+
+$dir = __DIR__.'/../src/Requests';
 $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
 $changed = 0;
 foreach ($files as $file) {
-    if (!$file->isFile()) continue;
-    if (pathinfo($file->getFilename(), PATHINFO_EXTENSION) !== 'php') continue;
+    if (! $file->isFile()) {
+        continue;
+    }
+    if (pathinfo($file->getFilename(), PATHINFO_EXTENSION) !== 'php') {
+        continue;
+    }
 
     $path = $file->getPathname();
     $code = file_get_contents($path);
@@ -37,7 +42,7 @@ foreach ($files as $file) {
     $code = preg_replace('/^use\\s+Joehoel\\\\Combell\\\\Concerns\\\\MapsToDto;\\s*$/m', '', $code);
 
     // Ensure Response import
-    if (!str_contains($code, 'use Saloon\\Http\\Response;')) {
+    if (! str_contains($code, 'use Saloon\\Http\\Response;')) {
         $code = preg_replace('/use\\s+Saloon\\\\Http\\\\Request;/', "use Saloon\\\\Http\\\\Request;\nuse Saloon\\\\Http\\\\Response;", $code, 1);
     }
 
@@ -62,7 +67,7 @@ foreach ($files as $file) {
             // No DTO? fallback to array
             $method = "\n    public function createDtoFromResponse(Response \$response): array\n    {\n        return (array) (\$response->json() ?? []);\n    }\n";
         } else {
-            $jsonExpr = $collectionKey === null ? "\$response->json()" : "\$response->json('{$collectionKey}')";
+            $jsonExpr = $collectionKey === null ? '$response->json()' : "\$response->json('{$collectionKey}')";
             $method = "\n    public function createDtoFromResponse(Response \$response): array\n    {\n        return {$dtoClass}::collect({$jsonExpr});\n    }\n";
         }
     } else {
@@ -75,7 +80,7 @@ foreach ($files as $file) {
     }
 
     // Insert method before final closing brace of class file
-    $code = preg_replace('/}\s*$/', $method . "\n}\n", $code);
+    $code = preg_replace('/}\s*$/', $method."\n}\n", $code);
 
     if ($code !== $original) {
         file_put_contents($path, $code);

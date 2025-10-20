@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\ProvisioningJobs;
 
-
 use Joehoel\Combell\Dto\ProvisioningJobInfo;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -18,7 +17,6 @@ use Saloon\Http\Response;
  */
 class GetProvisioningJob extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -30,12 +28,8 @@ class GetProvisioningJob extends Request
         protected string $jobId,
     ) {}
 
-
-
-
     public function createDtoFromResponse(Response $response): ProvisioningJobInfo
     {
         return ProvisioningJobInfo::fromResponse($response->json());
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\SslCertificates;
 
-
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
@@ -15,7 +14,6 @@ use Saloon\Http\Response;
  */
 class DownloadCertificate extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -43,12 +41,8 @@ class DownloadCertificate extends Request
         ]);
     }
 
-
-
-
     public function createDtoFromResponse(Response $response): string
     {
         return $response->body();
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\DnsRecords;
 
-
 use Joehoel\Combell\Dto\DnsRecord;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,7 +12,6 @@ use Saloon\Http\Response;
  */
 class GetRecords extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -49,12 +47,8 @@ class GetRecords extends Request
         ]);
     }
 
-
-
-
     public function createDtoFromResponse(Response $response): array
     {
         return DnsRecord::collect($response->json('items'));
     }
-
 }

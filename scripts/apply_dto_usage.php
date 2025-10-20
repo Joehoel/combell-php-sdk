@@ -1,4 +1,5 @@
 <?php
+
 $map = [
     'src/Requests/SslCertificateRequests/GetSslCertificateRequests.php' => ['list' => true, 'key' => 'items', 'dto' => 'SslCertificateRequest'],
     'src/Requests/SslCertificateRequests/GetSslCertificateRequest.php' => ['list' => false, 'dto' => 'SslCertificateRequestDetail'],
@@ -31,11 +32,15 @@ $map = [
 ];
 
 foreach ($map as $path => $cfg) {
-    if (!file_exists($path)) { fwrite(STDERR, "Missing $path\n"); continue; }
+    if (! file_exists($path)) {
+        fwrite(STDERR, "Missing $path\n");
+
+        continue;
+    }
     $code = file_get_contents($path);
 
     // Ensure Response import exists
-    if (!str_contains($code, 'use Saloon\\Http\\Response;')) {
+    if (! str_contains($code, 'use Saloon\\Http\\Response;')) {
         $code = preg_replace('/use\\s+Saloon\\\\Http\\\\Request;/', "use Saloon\\\\Http\\\\Request;\nuse Saloon\\\\Http\\\\Response;", $code, 1);
     }
 
@@ -47,19 +52,19 @@ foreach ($map as $path => $cfg) {
     $code = preg_replace('/\n\s*public function createDtoFromResponse\(.*?\)\s*:[^{]+\{[\s\S]*?\n\s*\}\n/s', "\n", $code);
 
     // Generate method
-    if (!empty($cfg['raw'])) {
+    if (! empty($cfg['raw'])) {
         $method = "\n    public function createDtoFromResponse(Response \$response): string\n    {\n        return \$response->body();\n    }\n";
-    } elseif (!empty($cfg['list'])) {
-        $jsonExpr = isset($cfg['key']) ? "\$response->json('{$cfg['key']}')" : "\$response->json()";
+    } elseif (! empty($cfg['list'])) {
+        $jsonExpr = isset($cfg['key']) ? "\$response->json('{$cfg['key']}')" : '$response->json()';
         $method = "\n    public function createDtoFromResponse(Response \$response): array\n    {\n        return {$cfg['dto']}::collect({$jsonExpr});\n    }\n";
     } else {
         $method = "\n    public function createDtoFromResponse(Response \$response): {$cfg['dto']}\n    {\n        return {$cfg['dto']}::fromResponse(\$response->json());\n    }\n";
     }
 
     // Insert before final class brace
-    $code = preg_replace('/}\s*$/', $method . "\n}\n", $code);
+    $code = preg_replace('/}\s*$/', $method."\n}\n", $code);
 
     file_put_contents($path, $code);
 }
 
-echo "Applied DTO usage to " . count($map) . " request files\n";
+echo 'Applied DTO usage to '.count($map)." request files\n";

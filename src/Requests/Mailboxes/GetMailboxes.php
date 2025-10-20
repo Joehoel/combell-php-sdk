@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\Mailboxes;
 
-
 use Joehoel\Combell\Dto\Mailbox;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -15,7 +14,6 @@ use Saloon\Http\Response;
  */
 class GetMailboxes extends Request
 {
-
     protected Method $method = Method::GET;
 
     public function resolveEndpoint(): string
@@ -35,12 +33,8 @@ class GetMailboxes extends Request
         return array_filter(['domain_name' => $this->domainName]);
     }
 
-
-
-
     public function createDtoFromResponse(Response $response): array
     {
         return Mailbox::collect($response->json());
     }
-
 }
