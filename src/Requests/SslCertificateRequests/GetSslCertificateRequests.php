@@ -2,6 +2,8 @@
 
 namespace Joehoel\Combell\Requests\SslCertificateRequests;
 
+use Joehoel\Combell\Concerns\MapsToDto;
+use Joehoel\Combell\Dto\SslCertificateRequest;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -10,7 +12,15 @@ use Saloon\Http\Request;
  */
 class GetSslCertificateRequests extends Request
 {
+    use MapsToDto;
+
     protected Method $method = Method::GET;
+
+    protected ?string $dtoClass = SslCertificateRequest::class;
+
+    protected bool $dtoIsList = true;
+
+    protected ?string $dtoCollectionKey = 'items';
 
     public function resolveEndpoint(): string
     {

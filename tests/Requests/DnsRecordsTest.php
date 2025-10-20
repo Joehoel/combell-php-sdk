@@ -1,6 +1,7 @@
 <?php
 
 use Joehoel\Combell\Combell;
+use Joehoel\Combell\Dto\DnsRecord;
 use Joehoel\Combell\Requests\DnsRecords\CreateRecord;
 use Joehoel\Combell\Requests\DnsRecords\DeleteRecord;
 use Joehoel\Combell\Requests\DnsRecords\EditRecord;
@@ -52,7 +53,12 @@ it('builds GET /dns/{domain}/records/{id}', function () {
     ]);
 
     $sdk = Combell::fake($mock, 'k', 's');
-    $sdk->dnsRecords()->getRecord($domain, $recordId);
+    $response = $sdk->dnsRecords()->getRecord($domain, $recordId);
+
+    /** @var DnsRecord $record */
+    $record = $response->dto();
+    expect($record)->toBeInstanceOf(DnsRecord::class);
+    expect($record->id)->toBe('abc123');
 });
 
 it('builds POST /dns/{domain}/records with JSON body', function () {

@@ -33,9 +33,15 @@ it('exposes base URL and default auth', function () {
 
 it('Combell::fake accepts arrays and existing MockClient', function () {
     // Array of mocks keyed by request class
-    $sdk = Combell::fake([
-        GetAccounts::class => MockResponse::make('{"items":[]}', 200, ['Content-Type' => 'application/json']),
-    ], 'k', 's');
+    $sdk = Combell::fake(
+        [
+            GetAccounts::class => MockResponse::make('{"items":[]}', 200, [
+                'Content-Type' => 'application/json',
+            ]),
+        ],
+        'k',
+        's',
+    );
 
     $sdk->accounts()->getAccounts();
     // Should be recorded
@@ -45,7 +51,9 @@ it('Combell::fake accepts arrays and existing MockClient', function () {
     // Existing MockClient instance
     $mock = new MockClient([
         GetAccounts::class => function (PendingRequest $p) {
-            return MockResponse::make('{"ok":true}', 200, ['Content-Type' => 'application/json']);
+            return MockResponse::make('{"ok":true}', 200, [
+                'Content-Type' => 'application/json',
+            ]);
         },
     ]);
 

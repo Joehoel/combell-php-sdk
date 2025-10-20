@@ -2,6 +2,8 @@
 
 namespace Joehoel\Combell\Requests\ProvisioningJobs;
 
+use Joehoel\Combell\Concerns\MapsToDto;
+use Joehoel\Combell\Dto\ProvisioningJobInfo;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -15,7 +17,11 @@ use Saloon\Http\Request;
  */
 class GetProvisioningJob extends Request
 {
+    use MapsToDto;
+
     protected Method $method = Method::GET;
+
+    protected ?string $dtoClass = ProvisioningJobInfo::class;
 
     public function resolveEndpoint(): string
     {

@@ -22,7 +22,9 @@ class Accounts extends BaseResource
         ?string $assetType = null,
         ?string $identifier = null,
     ): Response {
-        return $this->connector->send(new GetAccounts($skip, $take, $assetType, $identifier));
+        return $this->connector->send(
+            new GetAccounts($skip, $take, $assetType, $identifier),
+        );
     }
 
     public function createAccount(): Response

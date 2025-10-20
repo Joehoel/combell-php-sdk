@@ -2,6 +2,7 @@
 
 namespace Joehoel\Combell\Requests\SslCertificates;
 
+use Joehoel\Combell\Concerns\MapsToDto;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,7 +14,11 @@ use Saloon\Http\Request;
  */
 class DownloadCertificate extends Request
 {
+    use MapsToDto;
+
     protected Method $method = Method::GET;
+
+    protected bool $dtoRaw = true;
 
     public function resolveEndpoint(): string
     {

@@ -2,6 +2,8 @@
 
 namespace Joehoel\Combell\Requests\Accounts;
 
+use Joehoel\Combell\Concerns\MapsToDto;
+use Joehoel\Combell\Dto\Account;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -10,7 +12,15 @@ use Saloon\Http\Request;
  */
 class GetAccounts extends Request
 {
+    use MapsToDto;
+
     protected Method $method = Method::GET;
+
+    protected ?string $dtoClass = Account::class;
+
+    protected bool $dtoIsList = true;
+
+    protected ?string $dtoCollectionKey = 'items';
 
     public function resolveEndpoint(): string
     {
@@ -32,6 +42,11 @@ class GetAccounts extends Request
 
     public function defaultQuery(): array
     {
-        return array_filter(['skip' => $this->skip, 'take' => $this->take, 'asset_type' => $this->assetType, 'identifier' => $this->identifier]);
+        return array_filter([
+            'skip' => $this->skip,
+            'take' => $this->take,
+            'asset_type' => $this->assetType,
+            'identifier' => $this->identifier,
+        ]);
     }
 }

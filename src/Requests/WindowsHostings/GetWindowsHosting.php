@@ -2,6 +2,8 @@
 
 namespace Joehoel\Combell\Requests\WindowsHostings;
 
+use Joehoel\Combell\Concerns\MapsToDto;
+use Joehoel\Combell\Dto\WindowsHostingDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -10,7 +12,11 @@ use Saloon\Http\Request;
  */
 class GetWindowsHosting extends Request
 {
+    use MapsToDto;
+
     protected Method $method = Method::GET;
+
+    protected ?string $dtoClass = WindowsHostingDetail::class;
 
     public function resolveEndpoint(): string
     {

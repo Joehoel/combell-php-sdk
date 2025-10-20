@@ -2,6 +2,8 @@
 
 namespace Joehoel\Combell\Requests\Mailboxes;
 
+use Joehoel\Combell\Concerns\MapsToDto;
+use Joehoel\Combell\Dto\MailboxDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -10,7 +12,11 @@ use Saloon\Http\Request;
  */
 class GetMailbox extends Request
 {
+    use MapsToDto;
+
     protected Method $method = Method::GET;
+
+    protected ?string $dtoClass = MailboxDetail::class;
 
     public function resolveEndpoint(): string
     {
