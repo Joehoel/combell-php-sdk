@@ -8,8 +8,8 @@ use Saloon\Http\Response;
 
 class Servicepacks extends BaseResource
 {
-	public function servicepacks(): Response
-	{
-		return $this->connector->send(new ServicepacksRequest());
-	}
+    public function servicepacks(): Response
+    {
+        return $this->connector->send(new ServicepacksRequest);
+    }
 }

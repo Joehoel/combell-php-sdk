@@ -7,9 +7,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class EditDomainWillRenewRequest extends SpatieData
 {
-	public function __construct(
-		#[MapName('will_renew')]
-		public ?bool $willRenew = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('will_renew')]
+        public ?bool $willRenew = null,
+    ) {}
 }

@@ -6,8 +6,7 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class CreateSmtpDomainRequest extends SpatieData
 {
-	public function __construct(
-		public ?string $hostname = null,
-	) {
-	}
+    public function __construct(
+        public ?string $hostname = null,
+    ) {}
 }

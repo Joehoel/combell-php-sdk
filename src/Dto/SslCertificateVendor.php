@@ -9,7 +9,5 @@ use Spatie\LaravelData\Data as SpatieData;
  */
 class SslCertificateVendor extends SpatieData
 {
-	public function __construct()
-	{
-	}
+    public function __construct() {}
 }

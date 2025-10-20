@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\Mailboxes;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -11,20 +10,17 @@ use Saloon\Http\Request;
  */
 class DeleteMailbox extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/mailboxes/{$this->mailboxName}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/mailboxes/{$this->mailboxName}";
-	}
-
-
-	/**
-	 * @param string $mailboxName Mailbox name.
-	 */
-	public function __construct(
-		protected string $mailboxName,
-	) {
-	}
+    /**
+     * @param  string  $mailboxName  Mailbox name.
+     */
+    public function __construct(
+        protected string $mailboxName,
+    ) {}
 }

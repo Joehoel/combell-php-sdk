@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\MySqlDatabases;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -15,22 +14,19 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class CreateMySqlUser extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/mysqldatabases/{$this->databaseName}/users";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/mysqldatabases/{$this->databaseName}/users";
-	}
-
-
-	/**
-	 * @param string $databaseName Name of the database.
-	 */
-	public function __construct(
-		protected string $databaseName,
-	) {
-	}
+    /**
+     * @param  string  $databaseName  Name of the database.
+     */
+    public function __construct(
+        protected string $databaseName,
+    ) {}
 }

@@ -6,9 +6,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class NameServer extends SpatieData
 {
-	public function __construct(
-		public ?string $name = null,
-		public ?string $ip = null,
-	) {
-	}
+    public function __construct(
+        public ?string $name = null,
+        public ?string $ip = null,
+    ) {}
 }

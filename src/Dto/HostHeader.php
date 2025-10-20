@@ -9,9 +9,8 @@ use Spatie\LaravelData\Data as SpatieData;
  */
 class HostHeader extends SpatieData
 {
-	public function __construct(
-		public ?string $name = null,
-		public ?bool $enabled = null,
-	) {
-	}
+    public function __construct(
+        public ?string $name = null,
+        public ?bool $enabled = null,
+    ) {}
 }

@@ -2,15 +2,12 @@
 
 namespace Joehoel\Combell;
 
-use Saloon\Http\Connector;
-use Saloon\Http\Faking\MockClient;
-
 use Joehoel\Combell\Resource\Accounts;
 use Joehoel\Combell\Resource\DnsRecords;
 use Joehoel\Combell\Resource\Domains;
 use Joehoel\Combell\Resource\LinuxHostings;
-use Joehoel\Combell\Resource\MailZones;
 use Joehoel\Combell\Resource\Mailboxes;
+use Joehoel\Combell\Resource\MailZones;
 use Joehoel\Combell\Resource\MySqlDatabases;
 use Joehoel\Combell\Resource\ProvisioningJobs;
 use Joehoel\Combell\Resource\Servicepacks;
@@ -18,6 +15,8 @@ use Joehoel\Combell\Resource\Ssh;
 use Joehoel\Combell\Resource\SslCertificateRequests;
 use Joehoel\Combell\Resource\SslCertificates;
 use Joehoel\Combell\Resource\WindowsHostings;
+use Saloon\Http\Connector;
+use Saloon\Http\Faking\MockClient;
 
 class Combell extends Connector
 {
@@ -57,8 +56,8 @@ class Combell extends Connector
         ?string $apiSecret = null,
     ): static {
         $instance = new static(
-            apiKey: $apiKey ?? "",
-            apiSecret: $apiSecret ?? "",
+            apiKey: $apiKey ?? '',
+            apiSecret: $apiSecret ?? '',
         );
 
         if ($mock instanceof MockClient) {

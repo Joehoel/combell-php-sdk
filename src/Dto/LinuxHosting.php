@@ -7,11 +7,10 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class LinuxHosting extends SpatieData
 {
-	public function __construct(
-		#[MapName('domain_name')]
-		public ?string $domainName = null,
-		#[MapName('servicepack_id')]
-		public ?int $servicepackId = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('domain_name')]
+        public ?string $domainName = null,
+        #[MapName('servicepack_id')]
+        public ?int $servicepackId = null,
+    ) {}
 }

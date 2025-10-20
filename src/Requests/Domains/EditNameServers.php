@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\Domains;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -11,20 +10,17 @@ use Saloon\Http\Request;
  */
 class EditNameServers extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/domains/{$this->domainName}/nameservers";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/domains/{$this->domainName}/nameservers";
-	}
-
-
-	/**
-	 * @param string $domainName The domain name
-	 */
-	public function __construct(
-		protected string $domainName,
-	) {
-	}
+    /**
+     * @param  string  $domainName  The domain name
+     */
+    public function __construct(
+        protected string $domainName,
+    ) {}
 }

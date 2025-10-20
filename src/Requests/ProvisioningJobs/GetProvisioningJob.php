@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\ProvisioningJobs;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -16,20 +15,14 @@ use Saloon\Http\Request;
  */
 class GetProvisioningJob extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/provisioningjobs/{$this->jobId}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/provisioningjobs/{$this->jobId}";
-	}
-
-
-	/**
-	 * @param string $jobId
-	 */
-	public function __construct(
-		protected string $jobId,
-	) {
-	}
+    public function __construct(
+        protected string $jobId,
+    ) {}
 }

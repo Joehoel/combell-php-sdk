@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\MailZones;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -11,20 +10,17 @@ use Saloon\Http\Request;
  */
 class ConfigureAntiSpam extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/mailzones/{$this->domainName}/antispam";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/mailzones/{$this->domainName}/antispam";
-	}
-
-
-	/**
-	 * @param string $domainName Mail zone domain name.
-	 */
-	public function __construct(
-		protected string $domainName,
-	) {
-	}
+    /**
+     * @param  string  $domainName  Mail zone domain name.
+     */
+    public function __construct(
+        protected string $domainName,
+    ) {}
 }

@@ -7,9 +7,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class CreateCatchAllRequest extends SpatieData
 {
-	public function __construct(
-		#[MapName('email_address')]
-		public ?string $emailAddress = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('email_address')]
+        public ?string $emailAddress = null,
+    ) {}
 }

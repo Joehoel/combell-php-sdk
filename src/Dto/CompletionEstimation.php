@@ -6,8 +6,7 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class CompletionEstimation extends SpatieData
 {
-	public function __construct(
-		public ?string $estimate = null,
-	) {
-	}
+    public function __construct(
+        public ?string $estimate = null,
+    ) {}
 }

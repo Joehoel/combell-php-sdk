@@ -8,11 +8,8 @@ use Saloon\Http\Response;
 
 class ProvisioningJobs extends BaseResource
 {
-	/**
-	 * @param string $jobId
-	 */
-	public function getProvisioningJob(string $jobId): Response
-	{
-		return $this->connector->send(new GetProvisioningJob($jobId));
-	}
+    public function getProvisioningJob(string $jobId): Response
+    {
+        return $this->connector->send(new GetProvisioningJob($jobId));
+    }
 }

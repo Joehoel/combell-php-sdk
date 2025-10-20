@@ -7,10 +7,9 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class Alias extends SpatieData
 {
-	public function __construct(
-		#[MapName('email_address')]
-		public ?string $emailAddress = null,
-		public ?array $destinations = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('email_address')]
+        public ?string $emailAddress = null,
+        public ?array $destinations = null,
+    ) {}
 }

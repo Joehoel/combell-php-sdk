@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\Domains;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -17,20 +16,17 @@ use Saloon\Http\Request;
  */
 class ConfigureDomain extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/domains/{$this->domainName}/renew";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/domains/{$this->domainName}/renew";
-	}
-
-
-	/**
-	 * @param string $domainName The domain name
-	 */
-	public function __construct(
-		protected string $domainName,
-	) {
-	}
+    /**
+     * @param  string  $domainName  The domain name
+     */
+    public function __construct(
+        protected string $domainName,
+    ) {}
 }

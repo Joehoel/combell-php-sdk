@@ -7,9 +7,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class AddSshKeyRequest extends SpatieData
 {
-	public function __construct(
-		#[MapName('public_key')]
-		public ?string $publicKey = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('public_key')]
+        public ?string $publicKey = null,
+    ) {}
 }

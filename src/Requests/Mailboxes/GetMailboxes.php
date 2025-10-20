@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\Mailboxes;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,26 +12,22 @@ use Saloon\Http\Request;
  */
 class GetMailboxes extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return '/mailboxes';
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/mailboxes";
-	}
+    /**
+     * @param  null|string  $domainName  Obligated domain name for getting mailboxes.
+     */
+    public function __construct(
+        protected ?string $domainName = null,
+    ) {}
 
-
-	/**
-	 * @param null|string $domainName Obligated domain name for getting mailboxes.
-	 */
-	public function __construct(
-		protected ?string $domainName = null,
-	) {
-	}
-
-
-	public function defaultQuery(): array
-	{
-		return array_filter(['domain_name' => $this->domainName]);
-	}
+    public function defaultQuery(): array
+    {
+        return array_filter(['domain_name' => $this->domainName]);
+    }
 }

@@ -6,9 +6,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class CreateMySqlUser extends SpatieData
 {
-	public function __construct(
-		public ?string $name = null,
-		public ?string $password = null,
-	) {
-	}
+    public function __construct(
+        public ?string $name = null,
+        public ?string $password = null,
+    ) {}
 }

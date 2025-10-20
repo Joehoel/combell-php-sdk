@@ -7,12 +7,11 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class CreateMySqlDatabase extends SpatieData
 {
-	public function __construct(
-		#[MapName('database_name')]
-		public ?string $databaseName = null,
-		#[MapName('account_id')]
-		public ?int $accountId = null,
-		public ?string $password = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('database_name')]
+        public ?string $databaseName = null,
+        #[MapName('account_id')]
+        public ?int $accountId = null,
+        public ?string $password = null,
+    ) {}
 }

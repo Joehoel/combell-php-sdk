@@ -7,9 +7,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class BadRequestResponse extends SpatieData
 {
-	public function __construct(
-		#[MapName('validation_errors')]
-		public ?array $validationErrors = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('validation_errors')]
+        public ?array $validationErrors = null,
+    ) {}
 }

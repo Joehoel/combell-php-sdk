@@ -6,8 +6,7 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class UpdateSmtpDomainRequest extends SpatieData
 {
-	public function __construct(
-		public ?bool $enabled = null,
-	) {
-	}
+    public function __construct(
+        public ?bool $enabled = null,
+    ) {}
 }

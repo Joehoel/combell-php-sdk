@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -11,20 +10,17 @@ use Saloon\Http\Request;
  */
 class ConfigureSsh extends Request
 {
-	protected Method $method = Method::PUT;
+    protected Method $method = Method::PUT;
 
+    public function resolveEndpoint(): string
+    {
+        return "/linuxhostings/{$this->domainName}/ssh/configuration";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/linuxhostings/{$this->domainName}/ssh/configuration";
-	}
-
-
-	/**
-	 * @param string $domainName Linux hosting domain name.
-	 */
-	public function __construct(
-		protected string $domainName,
-	) {
-	}
+    /**
+     * @param  string  $domainName  Linux hosting domain name.
+     */
+    public function __construct(
+        protected string $domainName,
+    ) {}
 }

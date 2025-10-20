@@ -7,9 +7,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class UpdatePhpMemoryLimitRequest extends SpatieData
 {
-	public function __construct(
-		#[MapName('memory_limit')]
-		public ?int $memoryLimit = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('memory_limit')]
+        public ?int $memoryLimit = null,
+    ) {}
 }

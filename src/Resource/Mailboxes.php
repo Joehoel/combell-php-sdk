@@ -14,62 +14,56 @@ use Saloon\Http\Response;
 
 class Mailboxes extends BaseResource
 {
-	/**
-	 * @param string $domainName Obligated domain name for getting mailboxes.
-	 */
-	public function getMailboxes(?string $domainName = null): Response
-	{
-		return $this->connector->send(new GetMailboxes($domainName));
-	}
+    /**
+     * @param  string  $domainName  Obligated domain name for getting mailboxes.
+     */
+    public function getMailboxes(?string $domainName = null): Response
+    {
+        return $this->connector->send(new GetMailboxes($domainName));
+    }
 
+    public function createMailbox(): Response
+    {
+        return $this->connector->send(new CreateMailbox);
+    }
 
-	public function createMailbox(): Response
-	{
-		return $this->connector->send(new CreateMailbox());
-	}
+    /**
+     * @param  string  $mailboxName  Mailbox name.
+     */
+    public function getMailbox(string $mailboxName): Response
+    {
+        return $this->connector->send(new GetMailbox($mailboxName));
+    }
 
+    /**
+     * @param  string  $mailboxName  Mailbox name.
+     */
+    public function deleteMailbox(string $mailboxName): Response
+    {
+        return $this->connector->send(new DeleteMailbox($mailboxName));
+    }
 
-	/**
-	 * @param string $mailboxName Mailbox name.
-	 */
-	public function getMailbox(string $mailboxName): Response
-	{
-		return $this->connector->send(new GetMailbox($mailboxName));
-	}
+    /**
+     * @param  string  $mailboxName  Mailbox name.
+     */
+    public function changeMailboxPassword(string $mailboxName): Response
+    {
+        return $this->connector->send(new ChangeMailboxPassword($mailboxName));
+    }
 
+    /**
+     * @param  string  $mailboxName  Mailbox name.
+     */
+    public function configureMailboxAutoReply(string $mailboxName): Response
+    {
+        return $this->connector->send(new ConfigureMailboxAutoReply($mailboxName));
+    }
 
-	/**
-	 * @param string $mailboxName Mailbox name.
-	 */
-	public function deleteMailbox(string $mailboxName): Response
-	{
-		return $this->connector->send(new DeleteMailbox($mailboxName));
-	}
-
-
-	/**
-	 * @param string $mailboxName Mailbox name.
-	 */
-	public function changeMailboxPassword(string $mailboxName): Response
-	{
-		return $this->connector->send(new ChangeMailboxPassword($mailboxName));
-	}
-
-
-	/**
-	 * @param string $mailboxName Mailbox name.
-	 */
-	public function configureMailboxAutoReply(string $mailboxName): Response
-	{
-		return $this->connector->send(new ConfigureMailboxAutoReply($mailboxName));
-	}
-
-
-	/**
-	 * @param string $mailboxName Mailbox name.
-	 */
-	public function configureMailboxAutoForward(string $mailboxName): Response
-	{
-		return $this->connector->send(new ConfigureMailboxAutoForward($mailboxName));
-	}
+    /**
+     * @param  string  $mailboxName  Mailbox name.
+     */
+    public function configureMailboxAutoForward(string $mailboxName): Response
+    {
+        return $this->connector->send(new ConfigureMailboxAutoForward($mailboxName));
+    }
 }

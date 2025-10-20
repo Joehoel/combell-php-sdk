@@ -7,10 +7,9 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class AntiSpam extends SpatieData
 {
-	public function __construct(
-		public ?string $type = null,
-		#[MapName('allowed_types')]
-		public ?array $allowedTypes = null,
-	) {
-	}
+    public function __construct(
+        public ?string $type = null,
+        #[MapName('allowed_types')]
+        public ?array $allowedTypes = null,
+    ) {}
 }

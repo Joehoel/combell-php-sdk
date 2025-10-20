@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\MailZones;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -11,22 +10,19 @@ use Saloon\Http\Request;
  */
 class DeleteSmtpDomain extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/mailzones/{$this->domainName}/smtpdomains/{$this->hostname}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/mailzones/{$this->domainName}/smtpdomains/{$this->hostname}";
-	}
-
-
-	/**
-	 * @param string $domainName Mail zone domain name.
-	 * @param string $hostname Smtp domain name.
-	 */
-	public function __construct(
-		protected string $domainName,
-		protected string $hostname,
-	) {
-	}
+    /**
+     * @param  string  $domainName  Mail zone domain name.
+     * @param  string  $hostname  Smtp domain name.
+     */
+    public function __construct(
+        protected string $domainName,
+        protected string $hostname,
+    ) {}
 }

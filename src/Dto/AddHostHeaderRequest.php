@@ -7,9 +7,8 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class AddHostHeaderRequest extends SpatieData
 {
-	public function __construct(
-		#[MapName('domain_name')]
-		public ?string $domainName = null,
-	) {
-	}
+    public function __construct(
+        #[MapName('domain_name')]
+        public ?string $domainName = null,
+    ) {}
 }

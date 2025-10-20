@@ -6,8 +6,7 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class UpdateUserStatusRequest extends SpatieData
 {
-	public function __construct(
-		public ?bool $enabled = null,
-	) {
-	}
+    public function __construct(
+        public ?bool $enabled = null,
+    ) {}
 }

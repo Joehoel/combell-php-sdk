@@ -16,84 +16,73 @@ use Saloon\Http\Response;
 
 class MySqlDatabases extends BaseResource
 {
-	/**
-	 * @param int $skip The number of items to skip in the resultset.
-	 * @param int $take The number of items to return in the resultset. The returned count can be equal or less than this number.
-	 */
-	public function getMySqlDatabases(?int $skip = null, ?int $take = null): Response
-	{
-		return $this->connector->send(new GetMySqlDatabases($skip, $take));
-	}
+    /**
+     * @param  int  $skip  The number of items to skip in the resultset.
+     * @param  int  $take  The number of items to return in the resultset. The returned count can be equal or less than this number.
+     */
+    public function getMySqlDatabases(?int $skip = null, ?int $take = null): Response
+    {
+        return $this->connector->send(new GetMySqlDatabases($skip, $take));
+    }
 
+    public function createMySqlDatabase(): Response
+    {
+        return $this->connector->send(new CreateMySqlDatabase);
+    }
 
-	public function createMySqlDatabase(): Response
-	{
-		return $this->connector->send(new CreateMySqlDatabase());
-	}
+    public function getMySqlDatabase(string $databaseName): Response
+    {
+        return $this->connector->send(new GetMySqlDatabase($databaseName));
+    }
 
+    /**
+     * @param  string  $databaseName  Name of the database.
+     */
+    public function deleteDatabase(string $databaseName): Response
+    {
+        return $this->connector->send(new DeleteDatabase($databaseName));
+    }
 
-	/**
-	 * @param string $databaseName
-	 */
-	public function getMySqlDatabase(string $databaseName): Response
-	{
-		return $this->connector->send(new GetMySqlDatabase($databaseName));
-	}
+    /**
+     * @param  string  $databaseName  Name of the database.
+     */
+    public function getDatabaseUsers(string $databaseName): Response
+    {
+        return $this->connector->send(new GetDatabaseUsers($databaseName));
+    }
 
+    /**
+     * @param  string  $databaseName  Name of the database.
+     */
+    public function createMySqlUser(string $databaseName): Response
+    {
+        return $this->connector->send(new CreateMySqlUser($databaseName));
+    }
 
-	/**
-	 * @param string $databaseName Name of the database.
-	 */
-	public function deleteDatabase(string $databaseName): Response
-	{
-		return $this->connector->send(new DeleteDatabase($databaseName));
-	}
+    /**
+     * @param  string  $databaseName  Name of the database.
+     * @param  string  $userName  Name of the user.
+     */
+    public function changeDatabaseUserStatus(string $databaseName, string $userName): Response
+    {
+        return $this->connector->send(new ChangeDatabaseUserStatus($databaseName, $userName));
+    }
 
+    /**
+     * @param  string  $databaseName  Name of the database.
+     * @param  string  $userName  Name of the user.
+     */
+    public function changeDatabaseUserPassword(string $databaseName, string $userName): Response
+    {
+        return $this->connector->send(new ChangeDatabaseUserPassword($databaseName, $userName));
+    }
 
-	/**
-	 * @param string $databaseName Name of the database.
-	 */
-	public function getDatabaseUsers(string $databaseName): Response
-	{
-		return $this->connector->send(new GetDatabaseUsers($databaseName));
-	}
-
-
-	/**
-	 * @param string $databaseName Name of the database.
-	 */
-	public function createMySqlUser(string $databaseName): Response
-	{
-		return $this->connector->send(new CreateMySqlUser($databaseName));
-	}
-
-
-	/**
-	 * @param string $databaseName Name of the database.
-	 * @param string $userName Name of the user.
-	 */
-	public function changeDatabaseUserStatus(string $databaseName, string $userName): Response
-	{
-		return $this->connector->send(new ChangeDatabaseUserStatus($databaseName, $userName));
-	}
-
-
-	/**
-	 * @param string $databaseName Name of the database.
-	 * @param string $userName Name of the user.
-	 */
-	public function changeDatabaseUserPassword(string $databaseName, string $userName): Response
-	{
-		return $this->connector->send(new ChangeDatabaseUserPassword($databaseName, $userName));
-	}
-
-
-	/**
-	 * @param string $databaseName Name of the database.
-	 * @param string $userName Name of the user.
-	 */
-	public function deleteDatabaseUser(string $databaseName, string $userName): Response
-	{
-		return $this->connector->send(new DeleteDatabaseUser($databaseName, $userName));
-	}
+    /**
+     * @param  string  $databaseName  Name of the database.
+     * @param  string  $userName  Name of the user.
+     */
+    public function deleteDatabaseUser(string $databaseName, string $userName): Response
+    {
+        return $this->connector->send(new DeleteDatabaseUser($databaseName, $userName));
+    }
 }

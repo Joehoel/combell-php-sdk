@@ -6,8 +6,7 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class PhpVersion extends SpatieData
 {
-	public function __construct(
-		public ?string $version = null,
-	) {
-	}
+    public function __construct(
+        public ?string $version = null,
+    ) {}
 }

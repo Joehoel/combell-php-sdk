@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -13,20 +12,17 @@ use Saloon\Http\Request;
  */
 class GetScheduledTasks extends Request
 {
-	protected Method $method = Method::GET;
+    protected Method $method = Method::GET;
 
+    public function resolveEndpoint(): string
+    {
+        return "/linuxhostings/{$this->domainName}/scheduledtasks";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/linuxhostings/{$this->domainName}/scheduledtasks";
-	}
-
-
-	/**
-	 * @param string $domainName Linux hosting domain name.
-	 */
-	public function __construct(
-		protected string $domainName,
-	) {
-	}
+    /**
+     * @param  string  $domainName  Linux hosting domain name.
+     */
+    public function __construct(
+        protected string $domainName,
+    ) {}
 }

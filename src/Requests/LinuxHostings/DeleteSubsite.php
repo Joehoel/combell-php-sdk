@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-use DateTime;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -11,22 +10,19 @@ use Saloon\Http\Request;
  */
 class DeleteSubsite extends Request
 {
-	protected Method $method = Method::DELETE;
+    protected Method $method = Method::DELETE;
 
+    public function resolveEndpoint(): string
+    {
+        return "/linuxhostings/{$this->domainName}/subsites/{$this->siteName}";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/linuxhostings/{$this->domainName}/subsites/{$this->siteName}";
-	}
-
-
-	/**
-	 * @param string $domainName Linux hosting domain name.
-	 * @param string $siteName Name of the site on the linux hosting.
-	 */
-	public function __construct(
-		protected string $domainName,
-		protected string $siteName,
-	) {
-	}
+    /**
+     * @param  string  $domainName  Linux hosting domain name.
+     * @param  string  $siteName  Name of the site on the linux hosting.
+     */
+    public function __construct(
+        protected string $domainName,
+        protected string $siteName,
+    ) {}
 }

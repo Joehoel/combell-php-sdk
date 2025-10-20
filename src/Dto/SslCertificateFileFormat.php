@@ -12,7 +12,5 @@ use Spatie\LaravelData\Data as SpatieData;
  */
 class SslCertificateFileFormat extends SpatieData
 {
-	public function __construct()
-	{
-	}
+    public function __construct() {}
 }

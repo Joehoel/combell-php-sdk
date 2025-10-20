@@ -10,12 +10,11 @@ use Spatie\LaravelData\Data as SpatieData;
  */
 class ApplicationPool extends SpatieData
 {
-	public function __construct(
-		public ?string $runtime = null,
-		#[MapName('pipeline_mode')]
-		public ?string $pipelineMode = null,
-		#[MapName('installed_net_core_runtimes')]
-		public ?array $installedNetCoreRuntimes = null,
-	) {
-	}
+    public function __construct(
+        public ?string $runtime = null,
+        #[MapName('pipeline_mode')]
+        public ?string $pipelineMode = null,
+        #[MapName('installed_net_core_runtimes')]
+        public ?array $installedNetCoreRuntimes = null,
+    ) {}
 }

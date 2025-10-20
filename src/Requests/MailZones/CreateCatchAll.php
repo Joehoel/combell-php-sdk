@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Requests\MailZones;
 
-use DateTime;
 use Saloon\Contracts\Body\HasBody;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
@@ -13,22 +12,19 @@ use Saloon\Traits\Body\HasJsonBody;
  */
 class CreateCatchAll extends Request implements HasBody
 {
-	use HasJsonBody;
+    use HasJsonBody;
 
-	protected Method $method = Method::POST;
+    protected Method $method = Method::POST;
 
+    public function resolveEndpoint(): string
+    {
+        return "/mailzones/{$this->domainName}/catchall";
+    }
 
-	public function resolveEndpoint(): string
-	{
-		return "/mailzones/{$this->domainName}/catchall";
-	}
-
-
-	/**
-	 * @param string $domainName Mail zone domain name.
-	 */
-	public function __construct(
-		protected string $domainName,
-	) {
-	}
+    /**
+     * @param  string  $domainName  Mail zone domain name.
+     */
+    public function __construct(
+        protected string $domainName,
+    ) {}
 }

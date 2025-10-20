@@ -6,8 +6,7 @@ use Spatie\LaravelData\Data as SpatieData;
 
 class UpdateMailboxPasswordRequest extends SpatieData
 {
-	public function __construct(
-		public ?string $password = null,
-	) {
-	}
+    public function __construct(
+        public ?string $password = null,
+    ) {}
 }

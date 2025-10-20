@@ -10,17 +10,16 @@ use Spatie\LaravelData\Data as SpatieData;
  */
 class SiteBinding extends SpatieData
 {
-	public function __construct(
-		public ?string $protocol = null,
-		#[MapName('host_name')]
-		public ?string $hostName = null,
-		#[MapName('ip_address')]
-		public ?string $ipAddress = null,
-		public ?int $port = null,
-		#[MapName('cert_thumbprint')]
-		public ?string $certThumbprint = null,
-		#[MapName('ssl_enabled')]
-		public ?bool $sslEnabled = null,
-	) {
-	}
+    public function __construct(
+        public ?string $protocol = null,
+        #[MapName('host_name')]
+        public ?string $hostName = null,
+        #[MapName('ip_address')]
+        public ?string $ipAddress = null,
+        public ?int $port = null,
+        #[MapName('cert_thumbprint')]
+        public ?string $certThumbprint = null,
+        #[MapName('ssl_enabled')]
+        public ?bool $sslEnabled = null,
+    ) {}
 }
