@@ -1,7 +1,7 @@
 # Combell API SDK for PHP
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/joehoel/combell-php-sdk.svg?style=flat-square)](https://packagist.org/packages/joehoel/combell-php-sdk)
-[![Tests](https://img.shields.io/github/actions/workflow/status/joehoel/combell-php-sdk/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/joehoel/combell-php-sdk/actions/workflows/run-tests.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/joehoel/combell-php-sdk/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/joehoel/combell-php-sdk/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/joehoel/combell-php-sdk.svg?style=flat-square)](https://packagist.org/packages/joehoel/combell-php-sdk)
 
 This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
@@ -41,7 +41,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/master/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
