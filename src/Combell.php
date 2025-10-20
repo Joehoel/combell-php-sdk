@@ -2,6 +2,19 @@
 
 namespace Joehoel\Combell;
 
+use Joehoel\Combell\Resource\Accounts;
+use Joehoel\Combell\Resource\DnsRecords;
+use Joehoel\Combell\Resource\Domains;
+use Joehoel\Combell\Resource\LinuxHostings;
+use Joehoel\Combell\Resource\Mailboxes;
+use Joehoel\Combell\Resource\MailZones;
+use Joehoel\Combell\Resource\MySqlDatabases;
+use Joehoel\Combell\Resource\ProvisioningJobs;
+use Joehoel\Combell\Resource\Servicepacks;
+use Joehoel\Combell\Resource\Ssh;
+use Joehoel\Combell\Resource\SslCertificateRequests;
+use Joehoel\Combell\Resource\SslCertificates;
+use Joehoel\Combell\Resource\WindowsHostings;
 use Saloon\Http\Connector;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
@@ -69,5 +82,72 @@ class Combell extends Connector
         MockClient::destroyGlobal();
 
         return MockClient::global($mockData);
+    }
+
+    // Resources
+
+    public function accounts(): Accounts
+    {
+        return new Accounts($this);
+    }
+
+    public function dnsRecords(): DnsRecords
+    {
+        return new DnsRecords($this);
+    }
+
+    public function domains(): Domains
+    {
+        return new Domains($this);
+    }
+
+    public function linuxHostings(): LinuxHostings
+    {
+        return new LinuxHostings($this);
+    }
+
+    public function mailboxes(): Mailboxes
+    {
+        return new Mailboxes($this);
+    }
+
+    public function mailZones(): MailZones
+    {
+        return new MailZones($this);
+    }
+
+    public function mySqlDatabases(): MySqlDatabases
+    {
+        return new MySqlDatabases($this);
+    }
+
+    public function provisioningJobs(): ProvisioningJobs
+    {
+        return new ProvisioningJobs($this);
+    }
+
+    public function servicepacks(): Servicepacks
+    {
+        return new Servicepacks($this);
+    }
+
+    public function ssh(): Ssh
+    {
+        return new Ssh($this);
+    }
+
+    public function sslCertificateRequests(): SslCertificateRequests
+    {
+        return new SslCertificateRequests($this);
+    }
+
+    public function sslCertificates(): SslCertificates
+    {
+        return new SslCertificates($this);
+    }
+
+    public function windowsHostings(): WindowsHostings
+    {
+        return new WindowsHostings($this);
     }
 }
