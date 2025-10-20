@@ -1,8 +1,8 @@
-name: Release
+name: release
 
 on:
   workflow_run:
-    workflows: ["Tests"]
+    workflows: ["tests"]
     branches: [master]
     types:
       - completed
@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   release:
-    name: Release
+    name: release
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
