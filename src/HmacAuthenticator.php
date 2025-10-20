@@ -22,8 +22,8 @@ class HmacAuthenticator implements Authenticator
         $path = (string) $uri->getPath();
         $query = (string) $uri->getQuery();
 
-        if ($query !== "") {
-            $path .= "?" . $query;
+        if ($query !== '') {
+            $path .= '?'.$query;
         }
 
         if ($path !== urldecode($path)) {
@@ -31,11 +31,11 @@ class HmacAuthenticator implements Authenticator
         }
 
         // Resolve the body into a string if possible
-        $bodyString = "";
+        $bodyString = '';
         $body = $pendingRequest->body();
 
         if ($body instanceof BodyRepository) {
-            if (method_exists($body, "__toString")) {
+            if (method_exists($body, '__toString')) {
                 $bodyString = (string) $body;
             } else {
                 // Fallback to generating a stream and casting to string
@@ -46,22 +46,22 @@ class HmacAuthenticator implements Authenticator
             }
         }
 
-        if ($bodyString !== "") {
+        if ($bodyString !== '') {
             $bodyString = base64_encode(md5($bodyString, true));
         }
 
         $method = strtolower($pendingRequest->getMethod()->value);
 
         $valueToSign =
-            $this->apiKey .
-            $method .
-            urlencode($path) .
-            $time .
-            $nonce .
+            $this->apiKey.
+            $method.
+            urlencode($path).
+            $time.
+            $nonce.
             $bodyString;
 
         $signedValue = hash_hmac(
-            "sha256",
+            'sha256',
             $valueToSign,
             $this->apiSecret,
             true,
@@ -69,13 +69,13 @@ class HmacAuthenticator implements Authenticator
         $signature = base64_encode($signedValue);
 
         $authorization = sprintf(
-            "hmac %s:%s:%s:%s",
+            'hmac %s:%s:%s:%s',
             $this->apiKey,
             $signature,
             $nonce,
             $time,
         );
 
-        $pendingRequest->headers()->add("Authorization", $authorization);
+        $pendingRequest->headers()->add('Authorization', $authorization);
     }
 }
