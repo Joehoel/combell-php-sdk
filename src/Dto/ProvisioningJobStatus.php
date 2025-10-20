@@ -2,12 +2,20 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Data as SpatieData;
-
 /**
  * Current job status
  */
-class ProvisioningJobStatus extends SpatieData
+class ProvisioningJobStatus
 {
     public function __construct() {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self;
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

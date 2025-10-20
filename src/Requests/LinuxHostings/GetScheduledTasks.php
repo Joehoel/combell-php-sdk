@@ -2,10 +2,10 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-use Joehoel\Combell\Concerns\MapsToDto;
 use Joehoel\Combell\Dto\ScheduledTask;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetScheduledTasks
@@ -14,15 +14,7 @@ use Saloon\Http\Request;
  */
 class GetScheduledTasks extends Request
 {
-    use MapsToDto;
-
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = ScheduledTask::class;
-
-    protected bool $dtoIsList = true;
-
-    protected ?string $dtoCollectionKey = null;
 
     public function resolveEndpoint(): string
     {
@@ -35,4 +27,9 @@ class GetScheduledTasks extends Request
     public function __construct(
         protected string $domainName,
     ) {}
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return ScheduledTask::collect($response->json());
+    }
 }

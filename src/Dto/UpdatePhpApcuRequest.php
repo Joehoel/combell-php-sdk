@@ -2,14 +2,23 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class UpdatePhpApcuRequest extends SpatieData
+class UpdatePhpApcuRequest
 {
     public function __construct(
-        #[MapName('apcu_size')]
         public ?int $apcuSize = null,
         public ?bool $enabled = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            apcuSize: $data['apcu_size'] ?? null,
+            enabled: $data['enabled'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

@@ -2,21 +2,17 @@
 
 namespace Joehoel\Combell\Requests\Mailboxes;
 
-use Joehoel\Combell\Concerns\MapsToDto;
 use Joehoel\Combell\Dto\MailboxDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetMailbox
  */
 class GetMailbox extends Request
 {
-    use MapsToDto;
-
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = MailboxDetail::class;
 
     public function resolveEndpoint(): string
     {
@@ -29,4 +25,9 @@ class GetMailbox extends Request
     public function __construct(
         protected string $mailboxName,
     ) {}
+
+    public function createDtoFromResponse(Response $response): MailboxDetail
+    {
+        return MailboxDetail::fromResponse($response->json());
+    }
 }

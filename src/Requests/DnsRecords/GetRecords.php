@@ -2,25 +2,17 @@
 
 namespace Joehoel\Combell\Requests\DnsRecords;
 
-use Joehoel\Combell\Concerns\MapsToDto;
 use Joehoel\Combell\Dto\DnsRecord;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetRecords
  */
 class GetRecords extends Request
 {
-    use MapsToDto;
-
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = DnsRecord::class;
-
-    protected bool $dtoIsList = true;
-
-    protected ?string $dtoCollectionKey = 'items';
 
     public function resolveEndpoint(): string
     {
@@ -53,5 +45,10 @@ class GetRecords extends Request
             'record_name' => $this->recordName,
             'service' => $this->service,
         ]);
+    }
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return DnsRecord::collect($response->json('items'));
     }
 }

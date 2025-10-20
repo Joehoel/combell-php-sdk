@@ -2,13 +2,21 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class AddSshKeyRequest extends SpatieData
+class AddSshKeyRequest
 {
     public function __construct(
-        #[MapName('public_key')]
         public ?string $publicKey = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            publicKey: $data['public_key'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

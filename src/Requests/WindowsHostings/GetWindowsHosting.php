@@ -2,21 +2,17 @@
 
 namespace Joehoel\Combell\Requests\WindowsHostings;
 
-use Joehoel\Combell\Concerns\MapsToDto;
 use Joehoel\Combell\Dto\WindowsHostingDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetWindowsHosting
  */
 class GetWindowsHosting extends Request
 {
-    use MapsToDto;
-
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = WindowsHostingDetail::class;
 
     public function resolveEndpoint(): string
     {
@@ -29,4 +25,9 @@ class GetWindowsHosting extends Request
     public function __construct(
         protected string $domainName,
     ) {}
+
+    public function createDtoFromResponse(Response $response): WindowsHostingDetail
+    {
+        return WindowsHostingDetail::fromResponse($response->json());
+    }
 }

@@ -2,15 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class DnsRecord extends SpatieData
+class DnsRecord
 {
     public function __construct(
         public ?string $id = null,
         public ?string $type = null,
-        #[MapName('record_name')]
         public ?string $recordName = null,
         public ?int $ttl = null,
         public ?string $content = null,
@@ -21,4 +17,26 @@ class DnsRecord extends SpatieData
         public ?string $protocol = null,
         public ?int $port = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            id: $data['id'] ?? null,
+            type: $data['type'] ?? null,
+            recordName: $data['record_name'] ?? null,
+            ttl: $data['ttl'] ?? null,
+            content: $data['content'] ?? null,
+            priority: $data['priority'] ?? null,
+            service: $data['service'] ?? null,
+            weight: $data['weight'] ?? null,
+            target: $data['target'] ?? null,
+            protocol: $data['protocol'] ?? null,
+            port: $data['port'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

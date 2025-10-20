@@ -2,14 +2,23 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class MailZoneAccount extends SpatieData
+class MailZoneAccount
 {
     public function __construct(
-        #[MapName('account_id')]
         public ?int $accountId = null,
         public ?int $size = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            accountId: $data['account_id'] ?? null,
+            size: $data['size'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

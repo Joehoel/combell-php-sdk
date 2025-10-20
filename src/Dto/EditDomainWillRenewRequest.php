@@ -2,13 +2,21 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class EditDomainWillRenewRequest extends SpatieData
+class EditDomainWillRenewRequest
 {
     public function __construct(
-        #[MapName('will_renew')]
         public ?bool $willRenew = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            willRenew: $data['will_renew'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

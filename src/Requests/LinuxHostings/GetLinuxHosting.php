@@ -2,21 +2,17 @@
 
 namespace Joehoel\Combell\Requests\LinuxHostings;
 
-use Joehoel\Combell\Concerns\MapsToDto;
 use Joehoel\Combell\Dto\LinuxHostingDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetLinuxHosting
  */
 class GetLinuxHosting extends Request
 {
-    use MapsToDto;
-
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = LinuxHostingDetail::class;
 
     public function resolveEndpoint(): string
     {
@@ -29,4 +25,9 @@ class GetLinuxHosting extends Request
     public function __construct(
         protected string $domainName,
     ) {}
+
+    public function createDtoFromResponse(Response $response): LinuxHostingDetail
+    {
+        return LinuxHostingDetail::fromResponse($response->json());
+    }
 }

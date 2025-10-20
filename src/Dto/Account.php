@@ -2,14 +2,24 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class Account extends SpatieData
+class Account
 {
     public function __construct(
         public ?int $id = null,
         public ?string $identifier = null,
-        #[MapName('servicepack_id')] public ?int $servicepackId = null,
+        public ?int $servicepackId = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            id: $data['id'] ?? null,
+            identifier: $data['identifier'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

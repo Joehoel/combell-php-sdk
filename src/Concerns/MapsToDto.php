@@ -59,6 +59,11 @@ trait MapsToDto
                 return [];
             }
 
+            // If the DTO provides a static collect method, delegate to it
+            if (is_callable([$class, 'collect'])) {
+                return $class::collect(array_map(fn ($i) => (array) $i, $items));
+            }
+
             return array_map(function ($item) use ($class) {
                 $arr = is_object($item) ? (array) $item : (array) $item;
 
@@ -97,45 +102,34 @@ trait MapsToDto
     }
 
     /**
-     * Instantiate the DTO class without relying on Spatie Data's static factory,
-     * to keep this SDK framework-agnostic.
+     * Instantiate the DTO class, preferring a static fromResponse constructor
+     * if available (matching Oh Dear's DTO pattern). Falls back to mapping
+     * array keys to promoted properties by name when no factory exists.
      */
     private function instantiateDto(string $class, array $input): object
     {
-        // Build a map of property name => input key (respects MapName attribute when present)
+        // Prefer a static fromResponse method if present
+        if (is_callable([$class, 'fromResponse'])) {
+            return $class::fromResponse($input);
+        }
+
+        // Otherwise, best-effort map array keys to promoted properties
         $ref = new \ReflectionClass($class);
+        $ctor = $ref->getConstructor();
         $args = [];
 
-        foreach ($ref->getProperties() as $prop) {
-            $propName = $prop->getName();
-            $mapKey = $propName;
-
-            foreach ($prop->getAttributes() as $attr) {
-                if (
-                    $attr->getName() ===
-                    \Spatie\LaravelData\Attributes\MapName::class
-                ) {
-                    $inst = $attr->newInstance();
-                    // Prefer 'input' mapping value
-                    $mapKey = is_object($inst->input)
-                        ? (string) $inst->input
-                        : $inst->input;
-                    break;
+        if ($ctor) {
+            foreach ($ctor->getParameters() as $param) {
+                $name = $param->getName();
+                if (array_key_exists($name, $input)) {
+                    $args[$name] = $input[$name];
                 }
             }
 
-            if (array_key_exists($mapKey, $input)) {
-                $args[$propName] = $input[$mapKey];
-            } elseif (array_key_exists($propName, $input)) {
-                $args[$propName] = $input[$propName];
-            }
+            return $ref->newInstanceArgs($args);
         }
 
-        // Fallback: if no promoted properties were found, pass the whole array
-        if ($args === []) {
-            return new $class(...$input);
-        }
-
-        return new $class(...$args);
+        // If there's no constructor, just instantiate with no args
+        return new $class;
     }
 }

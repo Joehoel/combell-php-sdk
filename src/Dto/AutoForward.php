@@ -2,16 +2,25 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class AutoForward extends SpatieData
+class AutoForward
 {
     public function __construct(
         public ?bool $enabled = null,
-        #[MapName('email_addresses')]
         public ?array $emailAddresses = null,
-        #[MapName('copy_to_myself')]
         public ?bool $copyToMyself = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            enabled: $data['enabled'] ?? null,
+            emailAddresses: $data['email_addresses'] ?? [],
+            copyToMyself: $data['copy_to_myself'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }

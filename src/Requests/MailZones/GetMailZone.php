@@ -2,21 +2,17 @@
 
 namespace Joehoel\Combell\Requests\MailZones;
 
-use Joehoel\Combell\Concerns\MapsToDto;
 use Joehoel\Combell\Dto\MailZone;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetMailZone
  */
 class GetMailZone extends Request
 {
-    use MapsToDto;
-
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = MailZone::class;
 
     public function resolveEndpoint(): string
     {
@@ -29,4 +25,9 @@ class GetMailZone extends Request
     public function __construct(
         protected string $domainName,
     ) {}
+
+    public function createDtoFromResponse(Response $response): MailZone
+    {
+        return MailZone::fromResponse($response->json());
+    }
 }

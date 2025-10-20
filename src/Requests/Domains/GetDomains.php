@@ -2,25 +2,17 @@
 
 namespace Joehoel\Combell\Requests\Domains;
 
-use Joehoel\Combell\Concerns\MapsToDto;
 use Joehoel\Combell\Dto\Domain;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetDomains
  */
 class GetDomains extends Request
 {
-    use MapsToDto;
-
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = Domain::class;
-
-    protected bool $dtoIsList = true;
-
-    protected ?string $dtoCollectionKey = 'items';
 
     public function resolveEndpoint(): string
     {
@@ -39,5 +31,10 @@ class GetDomains extends Request
     public function defaultQuery(): array
     {
         return array_filter(['skip' => $this->skip, 'take' => $this->take]);
+    }
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return Domain::collect($response->json('items'));
     }
 }

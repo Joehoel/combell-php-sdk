@@ -2,39 +2,49 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
-
-class LinuxHostingDetail extends SpatieData
+class LinuxHostingDetail
 {
     public function __construct(
-        #[MapName('domain_name')]
         public ?string $domainName = null,
-        #[MapName('servicepack_id')]
         public ?int $servicepackId = null,
-        #[MapName('max_webspace_size')]
         public ?int $maxWebspaceSize = null,
-        #[MapName('max_size')]
         public ?int $maxSize = null,
-        #[MapName('webspace_usage')]
         public ?int $webspaceUsage = null,
-        #[MapName('actual_size')]
         public ?int $actualSize = null,
         public ?string $ip = null,
-        #[MapName('ip_type')]
         public ?string $ipType = null,
-        #[MapName('ftp_enabled')]
         public ?bool $ftpEnabled = null,
-        #[MapName('ftp_username')]
         public ?string $ftpUsername = null,
-        #[MapName('ssh_host')]
         public ?string $sshHost = null,
-        #[MapName('ssh_username')]
         public ?string $sshUsername = null,
-        #[MapName('php_version')]
         public ?string $phpVersion = null,
         public ?array $sites = null,
-        #[MapName('mysql_database_names')]
         public ?array $mysqlDatabaseNames = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            domainName: $data['domain_name'] ?? null,
+            servicepackId: $data['servicepack_id'] ?? null,
+            maxWebspaceSize: $data['max_webspace_size'] ?? null,
+            maxSize: $data['max_size'] ?? null,
+            webspaceUsage: $data['webspace_usage'] ?? null,
+            actualSize: $data['actual_size'] ?? null,
+            ip: $data['ip'] ?? null,
+            ipType: $data['ip_type'] ?? null,
+            ftpEnabled: $data['ftp_enabled'] ?? null,
+            ftpUsername: $data['ftp_username'] ?? null,
+            sshHost: $data['ssh_host'] ?? null,
+            sshUsername: $data['ssh_username'] ?? null,
+            phpVersion: $data['php_version'] ?? null,
+            sites: $data['sites'] ?? [],
+            mysqlDatabaseNames: $data['mysql_database_names'] ?? [],
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
 }
