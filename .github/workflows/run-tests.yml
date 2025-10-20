@@ -49,8 +49,8 @@ jobs:
       - name: List Installed Dependencies
         run: composer show -D
 
-      - name: Execute tests
-        run: vendor/bin/pest --ci
+      - name: Execute tests (no coverage)
+        run: vendor/bin/pest --ci --no-coverage
 
       - name: Execute tests with coverage (ubuntu + stable only)
         if: matrix.os == 'ubuntu-latest' && matrix.stability == 'prefer-stable'
