@@ -4,15 +4,7 @@
 [![Tests](https://img.shields.io/github/actions/workflow/status/joehoel/combell-php-sdk/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/joehoel/combell-php-sdk/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/joehoel/combell-php-sdk.svg?style=flat-square)](https://packagist.org/packages/joehoel/combell-php-sdk)
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/combell-php-sdk.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/combell-php-sdk)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+Unofficial PHP SDK for the Combell v2 API, built on Saloon v3. It handles HMAC authentication and exposes typed resources and DTOs for a clean developer experience.
 
 ## Installation
 
@@ -24,15 +16,106 @@ composer require joehoel/combell-php-sdk
 
 ## Usage
 
+Basic setup:
+
 ```php
-$skeleton = new Joehoel\Combell();
-echo $skeleton->echoPhrase('Hello, Joehoel!');
+use Joehoel\Combell\Combell;
+
+$sdk = new Combell($_ENV['COMBELL_API_KEY'], $_ENV['COMBELL_API_SECRET']);
 ```
+
+List accounts (returns DTOs):
+
+```php
+use Joehoel\Combell\Dto\Account;
+
+$response = $sdk->accounts()->getAccounts();
+/** @var Account[] $accounts */
+$accounts = $response->dto();
+
+foreach ($accounts as $account) {
+    echo $account->identifier.PHP_EOL;
+}
+```
+
+Get a single account:
+
+```php
+use Joehoel\Combell\Dto\AccountDetail;
+
+$response = $sdk->accounts()->getAccount(123);
+/** @var AccountDetail $account */
+$account = $response->dto();
+```
+
+List DNS records for a domain:
+
+```php
+use Joehoel\Combell\Dto\DnsRecord;
+
+$response = $sdk->dnsRecords()->getRecords('example.com');
+/** @var DnsRecord[] $records */
+$records = $response->dto();
+```
+
+Create a DNS record (send a request with JSON body):
+
+```php
+use Joehoel\Combell\Requests\DnsRecords\CreateRecord;
+
+// For JSON bodies, instantiate the request and merge the payload
+$request = new CreateRecord('example.com');
+$request->body()->merge([
+    'type' => 'A',
+    'name' => '@',
+    'content' => '1.2.3.4',
+    'ttl' => 3600,
+]);
+
+$response = $sdk->send($request);
+// $response->status() === 201 on success
+```
+
+Notes:
+
+- Responses map to DTOs when available via `$response->dto()`.
+- Non-2xx responses throw exceptions by default (Saloon’s `AlwaysThrowOnErrors`).
+- Authentication is automatic via HMAC — provide your API key and secret to `Combell`.
 
 ## Testing
 
 ```bash
 composer test
+```
+
+With coverage:
+
+```bash
+composer test-coverage
+```
+
+Format code:
+
+```bash
+composer format
+```
+
+## Mocking in tests
+
+You can use a local `MockClient` to test your integration without hitting the network:
+
+```php
+use Joehoel\Combell\Combell;
+use Joehoel\Combell\Requests\Accounts\GetAccounts;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\Faking\MockResponse;
+
+$mock = new MockClient([
+    GetAccounts::class => MockResponse::make('{"items":[]}', 200),
+]);
+
+$sdk = Combell::fake($mock, 'key', 'secret');
+$response = $sdk->accounts()->getAccounts();
 ```
 
 ## Changelog
@@ -41,16 +124,20 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/master/CONTRIBUTING.md) for details.
+Pull requests are welcome. Please include tests for new or changed behavior and run:
 
-## Security Vulnerabilities
+```bash
+composer format && composer test
+```
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+## Security
+
+If you discover a security vulnerability, please email the maintainer at `joel@kuijper.fyi` rather than opening a public issue.
 
 ## Credits
 
 - [Joël Kuijper](https://github.com/Joehoel)
-- [All Contributors](../../contributors)
+- [All Contributors](https://github.com/joehoel/combell-php-sdk/graphs/contributors)
 
 ## License
 
