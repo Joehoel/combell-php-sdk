@@ -230,7 +230,7 @@ class CombellSdk extends Connector
 
 	public function resolveBaseUrl(): string
 	{
-		return "/v2";
+		return "https://api.combell.nl/v2/";
 	}
 
 
