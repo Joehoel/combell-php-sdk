@@ -1,5 +1,7 @@
 <?php
 
+namespace Joehoel\Combell;
+
 use Saloon\Http\Connector;
 use Saloon\Http\Faking\MockClient;
 
@@ -22,9 +24,7 @@ class Combell extends Connector
     public function __construct(
         private string $apiKey,
         private string $apiSecret,
-    ) {
-        parent::__construct();
-    }
+    ) {}
 
     public function resolveBaseUrl(): string
     {
@@ -47,13 +47,12 @@ class Combell extends Connector
     /**
      * Create a Combell connector pre-configured with a local MockClient.
      *
-     * Example:
-     * $sdk = Combell::fake([
-     *     'api.combell.nl/*' => \Saloon\Http\Faking\MockResponse::make(body: '{}', status: 200),
-     * ]);
+     * Usage:
+     * - Provide an array of mocks (request class, URL wildcard, or connector class keys)
+     * - Or provide an existing MockClient instance
      */
     public static function fake(
-        array $mockData = [],
+        MockClient|array $mock = [],
         ?string $apiKey = null,
         ?string $apiSecret = null,
     ): static {
@@ -61,16 +60,25 @@ class Combell extends Connector
             apiKey: $apiKey ?? "",
             apiSecret: $apiSecret ?? "",
         );
-        $instance->withMockClient(new MockClient($mockData));
+
+        if ($mock instanceof MockClient) {
+            $instance->withMockClient($mock);
+        } else {
+            $instance->withMockClient(new MockClient($mock));
+        }
 
         return $instance;
     }
 
     /**
-     * Register a global MockClient for all requests (remember to destroy after tests).
+     * Register a global MockClient for all requests.
+     *
+     * Note: This will reset any existing global mock instance.
      */
     public static function fakeGlobal(array $mockData = []): MockClient
     {
+        MockClient::destroyGlobal();
+
         return MockClient::global($mockData);
     }
 
