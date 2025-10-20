@@ -102,7 +102,7 @@ composer format
 
 ## Mocking in tests
 
-You can use a local `MockClient` to test your integration without hitting the network:
+You can use a local `MockClient` to test your integration without hitting the network.
 
 ```php
 use Joehoel\Combell\Combell;
