@@ -2,13 +2,23 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class BadRequestResponse extends SpatieData
+class BadRequestResponse
 {
     public function __construct(
-        #[MapName('validation_errors')]
-        public ?array $validationErrors = null,
+public ?array $validationErrors = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            validationErrors: $data['validation_errors'] ?? [],
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

@@ -2,13 +2,23 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class AddHostHeaderRequest extends SpatieData
+class AddHostHeaderRequest
 {
     public function __construct(
-        #[MapName('domain_name')]
-        public ?string $domainName = null,
+public ?string $domainName = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            domainName: $data['domain_name'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

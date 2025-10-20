@@ -2,21 +2,33 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class LinuxSite extends SpatieData
+class LinuxSite
 {
     public function __construct(
         public ?string $name = null,
         public ?string $path = null,
-        #[MapName('host_headers')]
-        public ?array $hostHeaders = null,
-        #[MapName('ssl_enabled')]
-        public ?bool $sslEnabled = null,
-        #[MapName('https_redirect_enabled')]
-        public ?bool $httpsRedirectEnabled = null,
-        #[MapName('http2_enabled')]
-        public ?bool $http2Enabled = null,
+public ?array $hostHeaders = null,
+public ?bool $sslEnabled = null,
+public ?bool $httpsRedirectEnabled = null,
+public ?bool $http2Enabled = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            name: $data['name'] ?? null,
+            path: $data['path'] ?? null,
+            hostHeaders: $data['host_headers'] ?? [],
+            sslEnabled: $data['ssl_enabled'] ?? null,
+            httpsRedirectEnabled: $data['https_redirect_enabled'] ?? null,
+            http2Enabled: $data['http2_enabled'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

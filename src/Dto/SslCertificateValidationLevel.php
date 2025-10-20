@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Data as SpatieData;
 
 /**
  * The validation level of the certificate:
@@ -11,7 +10,20 @@ use Spatie\LaravelData\Data as SpatieData;
  * integrated in the certificate.</li><li>Extended validated: A thorough verification of your domain
  * name and company details.</li></ul>
  */
-class SslCertificateValidationLevel extends SpatieData
+class SslCertificateValidationLevel
 {
     public function __construct() {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

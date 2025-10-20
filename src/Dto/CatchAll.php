@@ -2,13 +2,23 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class CatchAll extends SpatieData
+class CatchAll
 {
     public function __construct(
-        #[MapName('email_addresses')]
-        public ?array $emailAddresses = null,
+public ?array $emailAddresses = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            emailAddresses: $data['email_addresses'] ?? [],
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

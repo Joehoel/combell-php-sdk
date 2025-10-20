@@ -2,29 +2,41 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class WindowsHostingDetail extends SpatieData
+class WindowsHostingDetail
 {
     public function __construct(
-        #[MapName('domain_name')]
-        public ?string $domainName = null,
-        #[MapName('servicepack_id')]
-        public ?int $servicepackId = null,
-        #[MapName('max_size')]
-        public ?int $maxSize = null,
-        #[MapName('actual_size')]
-        public ?int $actualSize = null,
+public ?string $domainName = null,
+public ?int $servicepackId = null,
+public ?int $maxSize = null,
+public ?int $actualSize = null,
         public ?string $ip = null,
-        #[MapName('ip_type')]
-        public ?string $ipType = null,
-        #[MapName('ftp_username')]
-        public ?string $ftpUsername = null,
-        #[MapName('application_pool')]
-        public ?object $applicationPool = null,
+public ?string $ipType = null,
+public ?string $ftpUsername = null,
+public ?object $applicationPool = null,
         public ?array $sites = null,
-        #[MapName('mssql_database_names')]
-        public ?array $mssqlDatabaseNames = null,
+public ?array $mssqlDatabaseNames = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            domainName: $data['domain_name'] ?? null,
+            servicepackId: $data['servicepack_id'] ?? null,
+            maxSize: $data['max_size'] ?? null,
+            actualSize: $data['actual_size'] ?? null,
+            ip: $data['ip'] ?? null,
+            ipType: $data['ip_type'] ?? null,
+            ftpUsername: $data['ftp_username'] ?? null,
+            applicationPool: $data['application_pool'] ?? null,
+            sites: $data['sites'] ?? [],
+            mssqlDatabaseNames: $data['mssql_database_names'] ?? [],
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

@@ -2,20 +2,31 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class SslCertificate extends SpatieData
+class SslCertificate
 {
     public function __construct(
-        #[MapName('sha1_fingerprint')]
-        public ?string $sha1Fingerprint = null,
-        #[MapName('common_name')]
-        public ?string $commonName = null,
-        #[MapName('expires_after')]
-        public ?string $expiresAfter = null,
-        #[MapName('validation_level')]
-        public ?string $validationLevel = null,
+public ?string $sha1Fingerprint = null,
+public ?string $commonName = null,
+public ?string $expiresAfter = null,
+public ?string $validationLevel = null,
         public ?string $type = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            sha1Fingerprint: $data['sha1_fingerprint'] ?? null,
+            commonName: $data['common_name'] ?? null,
+            expiresAfter: $data['expires_after'] ?? null,
+            validationLevel: $data['validation_level'] ?? null,
+            type: $data['type'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

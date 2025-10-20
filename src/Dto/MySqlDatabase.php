@@ -2,21 +2,33 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class MySqlDatabase extends SpatieData
+class MySqlDatabase
 {
     public function __construct(
         public ?string $name = null,
         public ?string $hostname = null,
-        #[MapName('user_count')]
-        public ?int $userCount = null,
-        #[MapName('max_size')]
-        public ?int $maxSize = null,
-        #[MapName('actual_size')]
-        public ?int $actualSize = null,
-        #[MapName('account_id')]
-        public ?int $accountId = null,
+public ?int $userCount = null,
+public ?int $maxSize = null,
+public ?int $actualSize = null,
+public ?int $accountId = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            name: $data['name'] ?? null,
+            hostname: $data['hostname'] ?? null,
+            userCount: $data['user_count'] ?? null,
+            maxSize: $data['max_size'] ?? null,
+            actualSize: $data['actual_size'] ?? null,
+            accountId: $data['account_id'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

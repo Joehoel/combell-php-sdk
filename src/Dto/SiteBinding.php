@@ -2,24 +2,36 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
 /**
  * A site binding identifies a web domain.
  */
-class SiteBinding extends SpatieData
+class SiteBinding
 {
     public function __construct(
         public ?string $protocol = null,
-        #[MapName('host_name')]
-        public ?string $hostName = null,
-        #[MapName('ip_address')]
-        public ?string $ipAddress = null,
+public ?string $hostName = null,
+public ?string $ipAddress = null,
         public ?int $port = null,
-        #[MapName('cert_thumbprint')]
-        public ?string $certThumbprint = null,
-        #[MapName('ssl_enabled')]
-        public ?bool $sslEnabled = null,
+public ?string $certThumbprint = null,
+public ?bool $sslEnabled = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            protocol: $data['protocol'] ?? null,
+            hostName: $data['host_name'] ?? null,
+            ipAddress: $data['ip_address'] ?? null,
+            port: $data['port'] ?? null,
+            certThumbprint: $data['cert_thumbprint'] ?? null,
+            sslEnabled: $data['ssl_enabled'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

@@ -2,19 +2,30 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
 /**
  * The application pool for the hosting account.
  */
-class ApplicationPool extends SpatieData
+class ApplicationPool
 {
     public function __construct(
         public ?string $runtime = null,
-        #[MapName('pipeline_mode')]
-        public ?string $pipelineMode = null,
-        #[MapName('installed_net_core_runtimes')]
-        public ?array $installedNetCoreRuntimes = null,
+public ?string $pipelineMode = null,
+public ?array $installedNetCoreRuntimes = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            runtime: $data['runtime'] ?? null,
+            pipelineMode: $data['pipeline_mode'] ?? null,
+            installedNetCoreRuntimes: $data['installed_net_core_runtimes'] ?? [],
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

@@ -2,15 +2,25 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class ValidationErrorMessage extends SpatieData
+class ValidationErrorMessage
 {
     public function __construct(
-        #[MapName('error_code')]
-        public ?string $errorCode = null,
-        #[MapName('error_text')]
-        public ?string $errorText = null,
+public ?string $errorCode = null,
+public ?string $errorText = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            errorCode: $data['error_code'] ?? null,
+            errorText: $data['error_text'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

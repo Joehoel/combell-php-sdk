@@ -2,16 +2,27 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class Mailbox extends SpatieData
+class Mailbox
 {
     public function __construct(
         public ?string $name = null,
-        #[MapName('max_size')]
-        public ?int $maxSize = null,
-        #[MapName('actual_size')]
-        public ?int $actualSize = null,
+public ?int $maxSize = null,
+public ?int $actualSize = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            name: $data['name'] ?? null,
+            maxSize: $data['max_size'] ?? null,
+            actualSize: $data['actual_size'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }

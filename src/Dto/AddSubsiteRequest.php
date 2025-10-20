@@ -2,14 +2,25 @@
 
 namespace Joehoel\Combell\Dto;
 
-use Spatie\LaravelData\Attributes\MapName;
-use Spatie\LaravelData\Data as SpatieData;
 
-class AddSubsiteRequest extends SpatieData
+class AddSubsiteRequest
 {
     public function __construct(
-        #[MapName('domain_name')]
-        public ?string $domainName = null,
+public ?string $domainName = null,
         public ?string $path = null,
     ) {}
+
+    public static function fromResponse(array $data): self
+    {
+        return new self(
+            domainName: $data['domain_name'] ?? null,
+            path: $data['path'] ?? null,
+        );
+    }
+
+    public static function collect(array $items): array
+    {
+        return array_map(fn (array $item) => self::fromResponse($item), $items);
+    }
+
 }
