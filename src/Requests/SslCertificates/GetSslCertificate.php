@@ -2,21 +2,19 @@
 
 namespace Joehoel\Combell\Requests\SslCertificates;
 
-use Joehoel\Combell\Concerns\MapsToDto;
+
 use Joehoel\Combell\Dto\SslCertificateDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetSslCertificate
  */
 class GetSslCertificate extends Request
 {
-    use MapsToDto;
 
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = SslCertificateDetail::class;
 
     public function resolveEndpoint(): string
     {
@@ -27,4 +25,13 @@ class GetSslCertificate extends Request
      * @param  string  $sha1Fingerprint  The SHA-1 fingerprint of the certificate.
      */
     public function __construct(protected string $sha1Fingerprint) {}
+
+
+
+
+    public function createDtoFromResponse(Response $response): SslCertificateDetail
+    {
+        return SslCertificateDetail::fromResponse($response->json());
+    }
+
 }

@@ -2,21 +2,19 @@
 
 namespace Joehoel\Combell\Requests\SslCertificateRequests;
 
-use Joehoel\Combell\Concerns\MapsToDto;
+
 use Joehoel\Combell\Dto\SslCertificateRequestDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetSslCertificateRequest
  */
 class GetSslCertificateRequest extends Request
 {
-    use MapsToDto;
 
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = SslCertificateRequestDetail::class;
 
     public function resolveEndpoint(): string
     {
@@ -29,4 +27,13 @@ class GetSslCertificateRequest extends Request
     public function __construct(
         protected int $id,
     ) {}
+
+
+
+
+    public function createDtoFromResponse(Response $response): SslCertificateRequestDetail
+    {
+        return SslCertificateRequestDetail::fromResponse($response->json());
+    }
+
 }

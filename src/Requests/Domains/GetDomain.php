@@ -2,21 +2,19 @@
 
 namespace Joehoel\Combell\Requests\Domains;
 
-use Joehoel\Combell\Concerns\MapsToDto;
+
 use Joehoel\Combell\Dto\DomainDetail;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetDomain
  */
 class GetDomain extends Request
 {
-    use MapsToDto;
 
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = DomainDetail::class;
 
     public function resolveEndpoint(): string
     {
@@ -29,4 +27,13 @@ class GetDomain extends Request
     public function __construct(
         protected string $domainName,
     ) {}
+
+
+
+
+    public function createDtoFromResponse(Response $response): DomainDetail
+    {
+        return DomainDetail::fromResponse($response->json());
+    }
+
 }

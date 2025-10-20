@@ -2,25 +2,19 @@
 
 namespace Joehoel\Combell\Requests\Ssh;
 
-use Joehoel\Combell\Concerns\MapsToDto;
+
 use Joehoel\Combell\Dto\SshKey;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
+use Saloon\Http\Response;
 
 /**
  * GetAllSshKeys
  */
 class GetAllSshKeys extends Request
 {
-    use MapsToDto;
 
     protected Method $method = Method::GET;
-
-    protected ?string $dtoClass = SshKey::class;
-
-    protected bool $dtoIsList = true;
-
-    protected ?string $dtoCollectionKey = 'items';
 
     public function resolveEndpoint(): string
     {
@@ -40,4 +34,13 @@ class GetAllSshKeys extends Request
     {
         return array_filter(['skip' => $this->skip, 'take' => $this->take]);
     }
+
+
+
+
+    public function createDtoFromResponse(Response $response): array
+    {
+        return SshKey::collect($response->json('items'));
+    }
+
 }
