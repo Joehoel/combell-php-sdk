@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class CreateCatchAllRequest
 {
     public function __construct(
-public ?string $emailAddress = null,
+        public ?string $emailAddress = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -20,5 +19,4 @@ public ?string $emailAddress = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

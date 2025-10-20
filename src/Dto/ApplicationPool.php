@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 /**
  * The application pool for the hosting account.
  */
@@ -10,8 +9,8 @@ class ApplicationPool
 {
     public function __construct(
         public ?string $runtime = null,
-public ?string $pipelineMode = null,
-public ?array $installedNetCoreRuntimes = null,
+        public ?string $pipelineMode = null,
+        public ?array $installedNetCoreRuntimes = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -27,5 +26,4 @@ public ?array $installedNetCoreRuntimes = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

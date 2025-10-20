@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 /**
  * Addon information
  */
@@ -25,5 +24,4 @@ class Addon
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

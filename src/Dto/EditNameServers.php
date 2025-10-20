@@ -2,12 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class EditNameServers
 {
     public function __construct(
-public ?string $domainName = null,
-public ?array $nameServers = null,
+        public ?string $domainName = null,
+        public ?array $nameServers = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -22,5 +21,4 @@ public ?array $nameServers = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

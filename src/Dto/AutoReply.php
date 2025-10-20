@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class AutoReply
 {
     public function __construct(
@@ -24,5 +23,4 @@ class AutoReply
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

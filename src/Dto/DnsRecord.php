@@ -2,13 +2,12 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class DnsRecord
 {
     public function __construct(
         public ?string $id = null,
         public ?string $type = null,
-public ?string $recordName = null,
+        public ?string $recordName = null,
         public ?int $ttl = null,
         public ?string $content = null,
         public ?int $priority = null,
@@ -40,5 +39,4 @@ public ?string $recordName = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

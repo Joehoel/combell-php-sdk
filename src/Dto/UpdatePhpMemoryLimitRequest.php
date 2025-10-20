@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class UpdatePhpMemoryLimitRequest
 {
     public function __construct(
-public ?int $memoryLimit = null,
+        public ?int $memoryLimit = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -20,5 +19,4 @@ public ?int $memoryLimit = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

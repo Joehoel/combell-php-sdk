@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class MailZoneAccount
 {
     public function __construct(
-public ?int $accountId = null,
+        public ?int $accountId = null,
         public ?int $size = null,
     ) {}
 
@@ -22,5 +21,4 @@ public ?int $accountId = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

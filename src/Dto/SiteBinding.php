@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 /**
  * A site binding identifies a web domain.
  */
@@ -10,11 +9,11 @@ class SiteBinding
 {
     public function __construct(
         public ?string $protocol = null,
-public ?string $hostName = null,
-public ?string $ipAddress = null,
+        public ?string $hostName = null,
+        public ?string $ipAddress = null,
         public ?int $port = null,
-public ?string $certThumbprint = null,
-public ?bool $sslEnabled = null,
+        public ?string $certThumbprint = null,
+        public ?bool $sslEnabled = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -33,5 +32,4 @@ public ?bool $sslEnabled = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

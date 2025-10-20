@@ -2,13 +2,12 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class CreateAccount
 {
     public function __construct(
         public ?string $identifier = null,
-public ?int $servicepackId = null,
-public ?string $ftpPassword = null,
+        public ?int $servicepackId = null,
+        public ?string $ftpPassword = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -24,5 +23,4 @@ public ?string $ftpPassword = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

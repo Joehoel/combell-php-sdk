@@ -2,14 +2,13 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class CreateSslCertificateRequest
 {
     public function __construct(
         public ?string $csr = null,
-public ?string $certificateType = null,
-public ?string $validationLevel = null,
-public ?array $additionalValidationAttributes = null,
+        public ?string $certificateType = null,
+        public ?string $validationLevel = null,
+        public ?array $additionalValidationAttributes = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -26,5 +25,4 @@ public ?array $additionalValidationAttributes = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

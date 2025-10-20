@@ -2,25 +2,24 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class LinuxHostingDetail
 {
     public function __construct(
-public ?string $domainName = null,
-public ?int $servicepackId = null,
-public ?int $maxWebspaceSize = null,
-public ?int $maxSize = null,
-public ?int $webspaceUsage = null,
-public ?int $actualSize = null,
+        public ?string $domainName = null,
+        public ?int $servicepackId = null,
+        public ?int $maxWebspaceSize = null,
+        public ?int $maxSize = null,
+        public ?int $webspaceUsage = null,
+        public ?int $actualSize = null,
         public ?string $ip = null,
-public ?string $ipType = null,
-public ?bool $ftpEnabled = null,
-public ?string $ftpUsername = null,
-public ?string $sshHost = null,
-public ?string $sshUsername = null,
-public ?string $phpVersion = null,
+        public ?string $ipType = null,
+        public ?bool $ftpEnabled = null,
+        public ?string $ftpUsername = null,
+        public ?string $sshHost = null,
+        public ?string $sshUsername = null,
+        public ?string $phpVersion = null,
         public ?array $sites = null,
-public ?array $mysqlDatabaseNames = null,
+        public ?array $mysqlDatabaseNames = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -48,5 +47,4 @@ public ?array $mysqlDatabaseNames = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

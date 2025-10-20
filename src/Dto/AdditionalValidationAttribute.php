@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class AdditionalValidationAttribute
 {
     public function __construct(
@@ -22,5 +21,4 @@ class AdditionalValidationAttribute
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

@@ -2,12 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class AntiSpam
 {
     public function __construct(
         public ?string $type = null,
-public ?array $allowedTypes = null,
+        public ?array $allowedTypes = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -22,5 +21,4 @@ public ?array $allowedTypes = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

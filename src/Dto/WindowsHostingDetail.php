@@ -2,20 +2,19 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class WindowsHostingDetail
 {
     public function __construct(
-public ?string $domainName = null,
-public ?int $servicepackId = null,
-public ?int $maxSize = null,
-public ?int $actualSize = null,
+        public ?string $domainName = null,
+        public ?int $servicepackId = null,
+        public ?int $maxSize = null,
+        public ?int $actualSize = null,
         public ?string $ip = null,
-public ?string $ipType = null,
-public ?string $ftpUsername = null,
-public ?object $applicationPool = null,
+        public ?string $ipType = null,
+        public ?string $ftpUsername = null,
+        public ?object $applicationPool = null,
         public ?array $sites = null,
-public ?array $mssqlDatabaseNames = null,
+        public ?array $mssqlDatabaseNames = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -38,5 +37,4 @@ public ?array $mssqlDatabaseNames = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

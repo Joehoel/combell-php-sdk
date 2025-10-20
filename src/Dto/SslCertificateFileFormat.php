@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 /**
  * The file format of the returned file stream:
  * <ul><li>PFX: Also known as PKCS #12, is a single,
@@ -15,14 +14,11 @@ class SslCertificateFileFormat
 
     public static function fromResponse(array $data): self
     {
-        return new self(
-
-        );
+        return new self;
     }
 
     public static function collect(array $items): array
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

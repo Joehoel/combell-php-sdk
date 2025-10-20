@@ -2,12 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class CreateMySqlDatabase
 {
     public function __construct(
-public ?string $databaseName = null,
-public ?int $accountId = null,
+        public ?string $databaseName = null,
+        public ?int $accountId = null,
         public ?string $password = null,
     ) {}
 
@@ -24,5 +23,4 @@ public ?int $accountId = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

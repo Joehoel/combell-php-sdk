@@ -2,12 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class SshKey
 {
     public function __construct(
         public ?string $fingerprint = null,
-public ?string $publicKey = null,
+        public ?string $publicKey = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -22,5 +21,4 @@ public ?string $publicKey = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

@@ -2,12 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class WindowsHosting
 {
     public function __construct(
-public ?string $domainName = null,
-public ?int $servicepackId = null,
+        public ?string $domainName = null,
+        public ?int $servicepackId = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -22,5 +21,4 @@ public ?int $servicepackId = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

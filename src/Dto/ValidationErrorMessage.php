@@ -2,12 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class ValidationErrorMessage
 {
     public function __construct(
-public ?string $errorCode = null,
-public ?string $errorText = null,
+        public ?string $errorCode = null,
+        public ?string $errorText = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -22,5 +21,4 @@ public ?string $errorText = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

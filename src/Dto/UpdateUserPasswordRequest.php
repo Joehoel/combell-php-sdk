@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class UpdateUserPasswordRequest
 {
     public function __construct(
@@ -20,5 +19,4 @@ class UpdateUserPasswordRequest
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

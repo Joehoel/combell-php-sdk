@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 /**
  * The validation level of the certificate:
  * <ul><li>Domain validated: Basic check of the identity of
@@ -16,14 +15,11 @@ class SslCertificateValidationLevel
 
     public static function fromResponse(array $data): self
     {
-        return new self(
-
-        );
+        return new self;
     }
 
     public static function collect(array $items): array
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

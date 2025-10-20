@@ -2,12 +2,11 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class RegisterDomain
 {
     public function __construct(
-public ?string $domainName = null,
-public ?array $nameServers = null,
+        public ?string $domainName = null,
+        public ?array $nameServers = null,
         public ?object $registrant = null,
     ) {}
 
@@ -24,5 +23,4 @@ public ?array $nameServers = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class ExtraField
 {
     public function __construct(
@@ -22,5 +21,4 @@ class ExtraField
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

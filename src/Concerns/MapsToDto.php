@@ -28,7 +28,7 @@ trait MapsToDto
         $status = $response->status();
         $body = $response->body();
 
-        if ($status === 204 || $body === "" || $body === null) {
+        if ($status === 204 || $body === '' || $body === null) {
             return null;
         }
 
@@ -55,13 +55,13 @@ trait MapsToDto
                 $items = $data[$key] ?? [];
             }
 
-            if (!is_array($items)) {
+            if (! is_array($items)) {
                 return [];
             }
 
             // If the DTO provides a static collect method, delegate to it
-            if (is_callable([$class, "collect"])) {
-                return $class::collect(array_map(fn($i) => (array) $i, $items));
+            if (is_callable([$class, 'collect'])) {
+                return $class::collect(array_map(fn ($i) => (array) $i, $items));
             }
 
             return array_map(function ($item) use ($class) {
@@ -79,26 +79,26 @@ trait MapsToDto
 
     protected function getDtoClass(): ?string
     {
-        return \property_exists($this, "dtoClass") ? $this->dtoClass : null;
+        return \property_exists($this, 'dtoClass') ? $this->dtoClass : null;
     }
 
     protected function getDtoIsList(): bool
     {
-        return \property_exists($this, "dtoIsList")
+        return \property_exists($this, 'dtoIsList')
             ? (bool) $this->dtoIsList
             : false;
     }
 
     protected function getDtoCollectionKey(): ?string
     {
-        return \property_exists($this, "dtoCollectionKey")
+        return \property_exists($this, 'dtoCollectionKey')
             ? $this->dtoCollectionKey
             : null;
     }
 
     protected function getDtoRaw(): bool
     {
-        return \property_exists($this, "dtoRaw") ? (bool) $this->dtoRaw : false;
+        return \property_exists($this, 'dtoRaw') ? (bool) $this->dtoRaw : false;
     }
 
     /**
@@ -109,7 +109,7 @@ trait MapsToDto
     private function instantiateDto(string $class, array $input): object
     {
         // Prefer a static fromResponse method if present
-        if (is_callable([$class, "fromResponse"])) {
+        if (is_callable([$class, 'fromResponse'])) {
             return $class::fromResponse($input);
         }
 
@@ -130,6 +130,6 @@ trait MapsToDto
         }
 
         // If there's no constructor, just instantiate with no args
-        return new $class();
+        return new $class;
     }
 }

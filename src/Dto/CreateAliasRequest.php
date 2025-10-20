@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class CreateAliasRequest
 {
     public function __construct(
-public ?string $emailAddress = null,
+        public ?string $emailAddress = null,
         public ?array $destinations = null,
     ) {}
 
@@ -22,5 +21,4 @@ public ?string $emailAddress = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

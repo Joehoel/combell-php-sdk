@@ -2,23 +2,22 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class RegistrantInput
 {
     public function __construct(
-public ?string $firstName = null,
-public ?string $lastName = null,
+        public ?string $firstName = null,
+        public ?string $lastName = null,
         public ?string $address = null,
-public ?string $postalCode = null,
+        public ?string $postalCode = null,
         public ?string $city = null,
-public ?string $countryCode = null,
+        public ?string $countryCode = null,
         public ?string $email = null,
         public ?string $fax = null,
         public ?string $phone = null,
-public ?string $languageCode = null,
-public ?string $companyName = null,
-public ?string $enterpriseNumber = null,
-public ?array $extraFields = null,
+        public ?string $languageCode = null,
+        public ?string $companyName = null,
+        public ?string $enterpriseNumber = null,
+        public ?array $extraFields = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -44,5 +43,4 @@ public ?array $extraFields = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

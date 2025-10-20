@@ -2,16 +2,15 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class DomainDetail
 {
     public function __construct(
-public ?string $domainName = null,
-public ?string $expirationDate = null,
-public ?bool $willRenew = null,
-public ?array $nameServers = null,
+        public ?string $domainName = null,
+        public ?string $expirationDate = null,
+        public ?bool $willRenew = null,
+        public ?array $nameServers = null,
         public ?object $registrant = null,
-public ?bool $canToggleRenew = null,
+        public ?bool $canToggleRenew = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -30,5 +29,4 @@ public ?bool $canToggleRenew = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

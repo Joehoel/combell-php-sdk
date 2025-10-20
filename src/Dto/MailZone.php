@@ -2,17 +2,16 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class MailZone
 {
     public function __construct(
         public ?string $name = null,
         public ?bool $enabled = null,
-public ?array $availableAccounts = null,
+        public ?array $availableAccounts = null,
         public ?array $aliases = null,
-public ?object $antiSpam = null,
-public ?object $catchAll = null,
-public ?array $smtpDomains = null,
+        public ?object $antiSpam = null,
+        public ?object $catchAll = null,
+        public ?array $smtpDomains = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -32,5 +31,4 @@ public ?array $smtpDomains = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

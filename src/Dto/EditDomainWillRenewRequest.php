@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class EditDomainWillRenewRequest
 {
     public function __construct(
-public ?bool $willRenew = null,
+        public ?bool $willRenew = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -20,5 +19,4 @@ public ?bool $willRenew = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

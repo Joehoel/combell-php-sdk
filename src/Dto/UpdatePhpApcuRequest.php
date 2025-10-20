@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class UpdatePhpApcuRequest
 {
     public function __construct(
-public ?int $apcuSize = null,
+        public ?int $apcuSize = null,
         public ?bool $enabled = null,
     ) {}
 
@@ -22,5 +21,4 @@ public ?int $apcuSize = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

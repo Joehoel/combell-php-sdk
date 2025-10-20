@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 /**
  * A detailed representation of an account.
  */
@@ -29,5 +28,4 @@ class AccountDetail
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

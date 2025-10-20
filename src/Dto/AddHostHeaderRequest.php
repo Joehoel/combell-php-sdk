@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class AddHostHeaderRequest
 {
     public function __construct(
-public ?string $domainName = null,
+        public ?string $domainName = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -20,5 +19,4 @@ public ?string $domainName = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

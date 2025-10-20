@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 /**
  * A host header identifies a web domain.
  */
@@ -25,5 +24,4 @@ class HostHeader
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

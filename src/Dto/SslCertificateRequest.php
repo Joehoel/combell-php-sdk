@@ -2,16 +2,15 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class SslCertificateRequest
 {
     public function __construct(
         public ?int $id = null,
-public ?string $certificateType = null,
-public ?string $validationLevel = null,
+        public ?string $certificateType = null,
+        public ?string $validationLevel = null,
         public ?string $vendor = null,
-public ?string $commonName = null,
-public ?string $orderCode = null,
+        public ?string $commonName = null,
+        public ?string $orderCode = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -30,5 +29,4 @@ public ?string $orderCode = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

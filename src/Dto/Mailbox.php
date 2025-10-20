@@ -2,13 +2,12 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class Mailbox
 {
     public function __construct(
         public ?string $name = null,
-public ?int $maxSize = null,
-public ?int $actualSize = null,
+        public ?int $maxSize = null,
+        public ?int $actualSize = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -24,5 +23,4 @@ public ?int $actualSize = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

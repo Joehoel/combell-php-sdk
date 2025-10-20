@@ -2,19 +2,18 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class SslCertificateRequestValidation
 {
     public function __construct(
-public ?string $dnsName = null,
+        public ?string $dnsName = null,
         public ?string $type = null,
-public ?bool $autoValidated = null,
-public ?array $emailAddresses = null,
-public ?string $cnameValidationName = null,
-public ?string $cnameValidationContent = null,
-public ?string $fileValidationUrlHttp = null,
-public ?string $fileValidationUrlHttps = null,
-public ?array $fileValidationContent = null,
+        public ?bool $autoValidated = null,
+        public ?array $emailAddresses = null,
+        public ?string $cnameValidationName = null,
+        public ?string $cnameValidationContent = null,
+        public ?string $fileValidationUrlHttp = null,
+        public ?string $fileValidationUrlHttps = null,
+        public ?array $fileValidationContent = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -36,5 +35,4 @@ public ?array $fileValidationContent = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class WindowsSite
 {
     public function __construct(
@@ -24,5 +23,4 @@ class WindowsSite
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

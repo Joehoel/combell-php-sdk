@@ -2,11 +2,10 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class AddSubsiteRequest
 {
     public function __construct(
-public ?string $domainName = null,
+        public ?string $domainName = null,
         public ?string $path = null,
     ) {}
 
@@ -22,5 +21,4 @@ public ?string $domainName = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

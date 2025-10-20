@@ -2,7 +2,6 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class SmtpDomain
 {
     public function __construct(
@@ -22,5 +21,4 @@ class SmtpDomain
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

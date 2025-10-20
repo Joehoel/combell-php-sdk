@@ -2,13 +2,12 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class Account
 {
     public function __construct(
         public ?int $id = null,
         public ?string $identifier = null,
-public ?int $servicepackId = null,
+        public ?int $servicepackId = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -23,5 +22,4 @@ public ?int $servicepackId = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }

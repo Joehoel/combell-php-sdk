@@ -2,16 +2,15 @@
 
 namespace Joehoel\Combell\Dto;
 
-
 class MySqlDatabase
 {
     public function __construct(
         public ?string $name = null,
         public ?string $hostname = null,
-public ?int $userCount = null,
-public ?int $maxSize = null,
-public ?int $actualSize = null,
-public ?int $accountId = null,
+        public ?int $userCount = null,
+        public ?int $maxSize = null,
+        public ?int $actualSize = null,
+        public ?int $accountId = null,
     ) {}
 
     public static function fromResponse(array $data): self
@@ -30,5 +29,4 @@ public ?int $accountId = null,
     {
         return array_map(fn (array $item) => self::fromResponse($item), $items);
     }
-
 }
