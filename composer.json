@@ -16,8 +16,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "saloonphp/saloon": "^3.0",
-        "spatie/laravel-data": "^4.18"
+        "saloonphp/saloon": "^3.0"
     },
     "require-dev": {
         "pestphp/pest": "^4.0",
@@ -27,7 +26,10 @@
     "autoload": {
         "psr-4": {
             "Joehoel\\Combell\\": "src"
-        }
+        },
+        "classmap": [
+            "src/Shims"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

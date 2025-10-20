@@ -40,8 +40,8 @@ class DownloadCertificate extends Request
     public function defaultQuery(): array
     {
         return array_filter([
-            "file_format" => $this->fileFormat,
-            "password" => $this->password,
+            'file_format' => $this->fileFormat,
+            'password' => $this->password,
         ]);
     }
 }
