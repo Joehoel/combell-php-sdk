@@ -3,11 +3,11 @@ name: Tests
 on:
   push:
     paths:
-      - '**.php'
-      - '.github/workflows/run-tests.yml'
-      - 'phpunit.xml.dist'
-      - 'composer.json'
-      - 'composer.lock'
+      - "**.php"
+      - ".github/workflows/run-tests.yml"
+      - "phpunit.xml.dist"
+      - "composer.json"
+      - "composer.lock"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,7 +35,8 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
-          coverage: none
+          coverage: xdebug
+          ini-values: xdebug.mode=off
 
       - name: Setup problem matchers
         run: |
@@ -50,3 +51,19 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/pest --ci
+
+      - name: Execute tests with coverage (ubuntu + stable only)
+        if: matrix.os == 'ubuntu-latest' && matrix.stability == 'prefer-stable'
+        env:
+          XDEBUG_MODE: coverage
+        run: composer test-coverage
+
+      - name: Upload coverage artifacts (ubuntu + stable only)
+        if: matrix.os == 'ubuntu-latest' && matrix.stability == 'prefer-stable'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            build/coverage
+            build/logs/clover.xml
+            build/coverage.txt
