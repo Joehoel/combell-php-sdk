@@ -22,7 +22,7 @@ class DownloadCertificate extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/sslcertificates/{$this->sha1fingerprint}/download";
+        return "/sslcertificates/{$this->sha1Fingerprint}/download";
     }
 
     /**
@@ -39,6 +39,9 @@ class DownloadCertificate extends Request
 
     public function defaultQuery(): array
     {
-        return array_filter(['file_format' => $this->fileFormat, 'password' => $this->password]);
+        return array_filter([
+            "file_format" => $this->fileFormat,
+            "password" => $this->password,
+        ]);
     }
 }

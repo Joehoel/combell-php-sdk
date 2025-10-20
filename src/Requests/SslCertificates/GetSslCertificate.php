@@ -20,13 +20,11 @@ class GetSslCertificate extends Request
 
     public function resolveEndpoint(): string
     {
-        return "/sslcertificates/{$this->sha1fingerprint}";
+        return "/sslcertificates/{$this->sha1Fingerprint}";
     }
 
     /**
      * @param  string  $sha1Fingerprint  The SHA-1 fingerprint of the certificate.
      */
-    public function __construct(
-        protected string $sha1Fingerprint,
-    ) {}
+    public function __construct(protected string $sha1Fingerprint) {}
 }
