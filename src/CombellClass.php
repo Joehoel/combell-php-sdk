@@ -2,6 +2,4 @@
 
 namespace Joehoel\Combell;
 
-class CombellClass
-{
-}
+class CombellClass {}
