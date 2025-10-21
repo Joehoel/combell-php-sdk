@@ -6,6 +6,8 @@
 
 Unofficial PHP SDK for the Combell v2 API, built on Saloon v3. It handles HMAC authentication and exposes typed resources and DTOs for a clean developer experience.
 
+This package takes https://github.com/combell/combell-api as a base and inspiration—many thanks to the Combell team for building and sharing such a solid platform.
+
 ## Installation
 
 You can install the package via composer:
@@ -129,6 +131,10 @@ Pull requests are welcome. Please include tests for new or changed behavior and 
 ```bash
 composer format && composer test
 ```
+
+## Acknowledgements
+
+This SDK is inspired by and informed by the resources in https://github.com/combell/combell-api. Thank you to the Combell team for building and maintaining such a solid platform and for sharing their work publicly.
 
 ## Security
 
