@@ -111,7 +111,7 @@ use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 
 $mock = new MockClient([
-    GetAccounts::class => MockResponse::make('{"items":[]}', 200),
+    GetAccounts::class => MockResponse::make('[]', 200),
 ]);
 
 $sdk = Combell::fake($mock, 'key', 'secret');

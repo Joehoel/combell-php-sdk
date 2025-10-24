@@ -35,6 +35,6 @@ class GetDomains extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return Domain::collect($response->json('items'));
+        return Domain::collect($response->json());
     }
 }

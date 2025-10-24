@@ -21,7 +21,7 @@ it('builds GET /dns/{domain}/records with no query by default', function () {
             expect((string) $uri->getQuery())->toBe('');
             expect($p->getMethod()->value)->toBe('GET');
 
-            return MockResponse::make('{"items":[]}', 200, [
+            return MockResponse::make('[]', 200, [
                 'Content-Type' => 'application/json',
             ]);
         },

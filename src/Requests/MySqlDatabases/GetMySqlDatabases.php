@@ -35,6 +35,6 @@ class GetMySqlDatabases extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return MySqlDatabase::collect($response->json('items'));
+        return MySqlDatabase::collect($response->json());
     }
 }

@@ -49,6 +49,6 @@ class GetRecords extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return DnsRecord::collect($response->json('items'));
+        return DnsRecord::collect($response->json());
     }
 }

@@ -35,6 +35,6 @@ class GetSslCertificateRequests extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return SslCertificateRequest::collect($response->json('items'));
+        return SslCertificateRequest::collect($response->json());
     }
 }

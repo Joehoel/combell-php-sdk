@@ -35,6 +35,6 @@ class GetWindowsHostings extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return WindowsHosting::collect($response->json('items'));
+        return WindowsHosting::collect($response->json());
     }
 }

@@ -35,6 +35,6 @@ class GetAllSshKeys extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return SshKey::collect($response->json('items'));
+        return SshKey::collect($response->json());
     }
 }

@@ -35,6 +35,6 @@ class GetLinuxHostings extends Request
 
     public function createDtoFromResponse(Response $response): array
     {
-        return LinuxHosting::collect($response->json('items'));
+        return LinuxHosting::collect($response->json());
     }
 }
