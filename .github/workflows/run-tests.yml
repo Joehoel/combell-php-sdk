@@ -57,7 +57,7 @@ jobs:
 
       - name: Upload coverage artifacts (ubuntu + stable only)
         if: matrix.os == 'ubuntu-latest' && matrix.stability == 'prefer-stable'
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-report
           path: |
