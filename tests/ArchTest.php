@@ -28,4 +28,3 @@ it('ensures every request class extends Saloon Request', function () {
             ->toBeTrue("{$class} must extend ".Request::class);
     }
 });
-
