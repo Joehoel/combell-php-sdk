@@ -1,7 +1,11 @@
 name: release
 
 on:
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["tests"]
+    branches: [master]
+    types:
+      - completed
 
 permissions:
   contents: write
@@ -11,6 +15,7 @@ permissions:
 jobs:
   release:
     name: release
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
