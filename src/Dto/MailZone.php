@@ -16,13 +16,23 @@ class MailZone
 
     public static function fromResponse(array $data): self
     {
+        $antiSpam = $data['anti_spam'] ?? null;
+        if (is_array($antiSpam)) {
+            $antiSpam = (object) $antiSpam;
+        }
+
+        $catchAll = $data['catch_all'] ?? null;
+        if (is_array($catchAll)) {
+            $catchAll = (object) $catchAll;
+        }
+
         return new self(
             name: $data['name'] ?? null,
             enabled: $data['enabled'] ?? null,
             availableAccounts: $data['available_accounts'] ?? [],
             aliases: $data['aliases'] ?? [],
-            antiSpam: $data['anti_spam'] ?? null,
-            catchAll: $data['catch_all'] ?? null,
+            antiSpam: $antiSpam,
+            catchAll: $catchAll,
             smtpDomains: $data['smtp_domains'] ?? [],
         );
     }

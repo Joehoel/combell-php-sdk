@@ -15,12 +15,17 @@ class DomainDetail
 
     public static function fromResponse(array $data): self
     {
+        $registrant = $data['registrant'] ?? null;
+        if (is_array($registrant)) {
+            $registrant = (object) $registrant;
+        }
+
         return new self(
             domainName: $data['domain_name'] ?? null,
             expirationDate: $data['expiration_date'] ?? null,
             willRenew: $data['will_renew'] ?? null,
             nameServers: $data['name_servers'] ?? [],
-            registrant: $data['registrant'] ?? null,
+            registrant: $registrant,
             canToggleRenew: $data['can_toggle_renew'] ?? null,
         );
     }

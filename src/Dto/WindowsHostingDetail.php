@@ -19,6 +19,11 @@ class WindowsHostingDetail
 
     public static function fromResponse(array $data): self
     {
+        $applicationPool = $data['application_pool'] ?? null;
+        if (is_array($applicationPool)) {
+            $applicationPool = (object) $applicationPool;
+        }
+
         return new self(
             domainName: $data['domain_name'] ?? null,
             servicepackId: $data['servicepack_id'] ?? null,
@@ -27,7 +32,7 @@ class WindowsHostingDetail
             ip: $data['ip'] ?? null,
             ipType: $data['ip_type'] ?? null,
             ftpUsername: $data['ftp_username'] ?? null,
-            applicationPool: $data['application_pool'] ?? null,
+            applicationPool: $applicationPool,
             sites: $data['sites'] ?? [],
             mssqlDatabaseNames: $data['mssql_database_names'] ?? [],
         );

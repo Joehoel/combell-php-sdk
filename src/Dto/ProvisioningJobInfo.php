@@ -12,10 +12,15 @@ class ProvisioningJobInfo
 
     public static function fromResponse(array $data): self
     {
+        $completion = $data['completion'] ?? null;
+        if (is_array($completion)) {
+            $completion = (object) $completion;
+        }
+
         return new self(
             id: $data['id'] ?? null,
             status: $data['status'] ?? null,
-            completion: $data['completion'] ?? null,
+            completion: $completion,
         );
     }
 

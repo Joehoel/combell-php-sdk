@@ -15,13 +15,23 @@ class MailboxDetail
 
     public static function fromResponse(array $data): self
     {
+        $autoReply = $data['auto_reply'] ?? null;
+        if (is_array($autoReply)) {
+            $autoReply = (object) $autoReply;
+        }
+
+        $autoForward = $data['auto_forward'] ?? null;
+        if (is_array($autoForward)) {
+            $autoForward = (object) $autoForward;
+        }
+
         return new self(
             name: $data['name'] ?? null,
             login: $data['login'] ?? null,
             maxSize: $data['max_size'] ?? null,
             actualSize: $data['actual_size'] ?? null,
-            autoReply: $data['auto_reply'] ?? null,
-            autoForward: $data['auto_forward'] ?? null,
+            autoReply: $autoReply,
+            autoForward: $autoForward,
         );
     }
 
