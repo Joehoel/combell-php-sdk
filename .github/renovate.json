@@ -18,6 +18,12 @@
     "ignoreDeps": ["node"],
     "packageRules": [
         {
+            "matchManagers": ["composer"],
+            "matchDepTypes": ["require"],
+            "matchPackageNames": ["php"],
+            "enabled": false
+        },
+        {
             "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
             "automerge": true,
             "automergeSchedule": ["after 1am and before 2am"],
