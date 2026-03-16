@@ -15,14 +15,8 @@
     "npm": {
         "commitMessageTopic": "{{prettyDepType}} {{depName}}"
     },
-    "ignoreDeps": ["node"],
+    "ignoreDeps": ["node", "php"],
     "packageRules": [
-        {
-            "matchManagers": ["composer"],
-            "matchDepTypes": ["require"],
-            "matchPackageNames": ["php"],
-            "enabled": false
-        },
         {
             "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
             "automerge": true,
