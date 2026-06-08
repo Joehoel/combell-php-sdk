@@ -11,14 +11,75 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
+  setup:
+    name: Resolve PHP versions
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      php: ${{ steps.matrix.outputs.php }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Determine supported PHP versions
+        id: matrix
+        shell: python
+        run: |
+          import datetime, json, os, re, urllib.request
+
+          # Versions to fall back to if the live data cannot be fetched.
+          FALLBACK = ["8.3", "8.4"]
+
+          with open("composer.json") as fh:
+              constraint = json.load(fh)["require"]["php"]
+          match = re.search(r"(\d+)\.(\d+)", constraint)
+          minimum = (int(match.group(1)), int(match.group(2)))
+
+          def fetch():
+              request = urllib.request.Request(
+                  "https://endoflife.date/api/php.json",
+                  headers={"User-Agent": "github-actions"},
+              )
+              data = json.load(urllib.request.urlopen(request, timeout=15))
+              today = datetime.date.today().isoformat()
+              versions = []
+              for entry in data:
+                  cycle = str(entry["cycle"])
+                  cycle_match = re.match(r"(\d+)\.(\d+)$", cycle)
+                  if not cycle_match:
+                      continue
+                  version = (int(cycle_match.group(1)), int(cycle_match.group(2)))
+                  if version < minimum:
+                      continue
+                  eol = entry.get("eol")
+                  if eol is True or (isinstance(eol, str) and eol < today):
+                      continue  # already end-of-life
+                  release = entry.get("releaseDate")
+                  if isinstance(release, str) and release > today:
+                      continue  # not released yet
+                  versions.append(cycle)
+              return sorted(versions, key=lambda v: tuple(map(int, v.split("."))))
+
+          try:
+              php = fetch()
+              assert php, "no supported versions resolved"
+          except Exception as error:  # noqa: BLE001
+              print(f"Falling back to {FALLBACK}: {error}")
+              php = [v for v in FALLBACK if tuple(map(int, v.split("."))) >= minimum]
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as out:
+              out.write("php=" + json.dumps(php) + "\n")
+          print("PHP matrix:", php)
+
   test:
+    needs: setup
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest, windows-latest]
-        php: [8.3, 8.4]
+        php: ${{ fromJson(needs.setup.outputs.php) }}
         stability: [prefer-lowest, prefer-stable]
 
     name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
@@ -64,3 +125,15 @@ jobs:
             build/coverage
             build/logs/clover.xml
             build/coverage.txt
+
+  # Stable check name for branch protection: stays green only when every
+  # matrix job succeeds, regardless of which PHP versions were tested.
+  tests-passed:
+    name: tests-passed
+    if: always()
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify all test jobs passed
+        if: needs.test.result != 'success'
+        run: exit 1
