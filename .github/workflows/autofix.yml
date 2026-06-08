@@ -1,7 +1,11 @@
 name: autofix.ci
 
 on:
+  pull_request:
+    paths:
+      - "**.php"
   push:
+    branches: ["master"]
     paths:
       - "**.php"
 
