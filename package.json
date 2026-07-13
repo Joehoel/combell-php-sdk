@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "devDependencies": {
         "@semantic-release/git": "^10.0.1",
-        "semantic-release": "^25.0.5",
+        "semantic-release": "^25.0.6",
         "@mridang/semantic-release-packagist": "*"
     },
     "scripts": {
