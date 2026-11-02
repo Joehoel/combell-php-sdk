@@ -19,7 +19,7 @@
         "saloonphp/saloon": "^4.0.0"
     },
     "require-dev": {
-        "pestphp/pest": "^4.4.2",
+        "pestphp/pest": "^5.3.4",
         "laravel/pint": "^1.29.0",
         "spatie/ray": "^1.47.0"
     },
